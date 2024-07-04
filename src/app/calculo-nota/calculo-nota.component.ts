@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NotaVisualizacao} from "../domain/nota-visualizacao";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-calculo-nota',
@@ -10,10 +11,19 @@ import {NotaVisualizacao} from "../domain/nota-visualizacao";
 })
 export class CalculoNotaComponent implements OnInit {
 
-  notaVisualizacao:NotaVisualizacao;
+  notaVisualizacao: NotaVisualizacao;
+
+  codigoDisciplina: string;
 
   constructor() {
   }
+
   ngOnInit(): void {
+  }
+
+
+  salvarNota(): boolean {
+    this.codigoDisciplina = this.notaVisualizacao.codigoDisciplina;
+    return true;
   }
 }
