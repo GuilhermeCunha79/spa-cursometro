@@ -1,4 +1,4 @@
-﻿export class NotaVisualizacao {
+﻿interface NotaParams {
   notaPortuguesDecimo: string;
   notaPortuguesDecimoPrim: string;
   notaPortuguesDecimoSeg: string;
@@ -68,5 +68,5 @@
   notaExameExterno2Anual1: string;
   cifAnual2: number;
   notaExameExterno1Anual2: string;
-  notaExameExterno2Anual2: string;
+  notaExameExterno2Anual2: string
 }
