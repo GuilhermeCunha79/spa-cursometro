@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {NotaVisualizacao} from "../domain/nota-visualizacao";
-import {Observable} from "rxjs";
 import {CalculoNotaService} from "../services/calculo-nota/calculo-nota-service";
+import {NotaParams} from "../interfaces/notaParams";
 
 @Component({
   selector: 'app-calculo-nota',
-  standalone: true,
-  imports: [],
   templateUrl: './calculo-nota.component.html',
   styleUrl: './calculo-nota.component.css'
 })
@@ -102,11 +100,12 @@ export class CalculoNotaComponent implements OnInit {
   notaExameExterno2Anual2: string;
 
   constructor(private calculoNotaService: CalculoNotaService) {
+
   }
 
   ngOnInit(): void {
+    // initialize component
   }
-
 
 
   public salvarNota(): void {

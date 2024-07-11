@@ -1,4 +1,4 @@
-﻿interface NotaParams {
+﻿export interface NotaParams {
   notaPortuguesDecimo: string;
   notaPortuguesDecimoPrim: string;
   notaPortuguesDecimoSeg: string;
