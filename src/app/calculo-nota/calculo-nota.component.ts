@@ -2,47 +2,50 @@ import {Component, OnInit} from '@angular/core';
 import {NotaVisualizacao} from "../domain/nota-visualizacao";
 import {CalculoNotaService} from "../services/calculo-nota/calculo-nota-service";
 import {NotaParams} from "../interfaces/notaParams";
-
+import {FormControl, FormsModule, Validators} from "@angular/forms";
 @Component({
+  imports: [FormsModule],
+  standalone:true,
   selector: 'app-calculo-nota',
   templateUrl: './calculo-nota.component.html',
-  styleUrl: './calculo-nota.component.css'
+  styleUrl: './calculo-nota.component.css',
+  host: {ngSkipHydration: 'true'}
 })
 export class CalculoNotaComponent implements OnInit {
 
   notaVisualizacao: NotaVisualizacao;
 
-  notaPortuguesDecimo: string;
-  notaPortuguesDecimoPrim: string;
-  notaPortuguesDecimoSeg: string;
+  notaPortuguesDecimo: number = 10;
+  notaPortuguesDecimoPrim: number = 10;
+  notaPortuguesDecimoSeg: number = 10;
 
-  notaEduFisicaDecimo: string;
-  notaEduFisicaDecimoPrim: string;
-  notaEduFisicaDecimoSeg: string;
-  notaFilosofiaDecimo: string;
-  notaFilosofiaDecimoPrim: string;
+  notaEduFisicaDecimo: number = 10;
+  notaEduFisicaDecimoPrim: number = 10;
+  notaEduFisicaDecimoSeg: number = 10;
+  notaFilosofiaDecimo: number = 10;
+  notaFilosofiaDecimoPrim: number = 10;
 
   idLingua: string;
-  otaLinguaDecimo: string;
-  notaLinguaDecimoPrim: string;
+  notaLinguaDecimo: number = 10;
+  notaLinguaDecimoPrim: number = 10;
 
   idNotaTrienal: string;
-  notaTrienalDecimo: string;
-  notaTrienalDecimoPrim: string;
-  notaTrienalDecimoSeg: string;
+  notaTrienalDecimo: number = 10;
+  notaTrienalDecimoPrim: number = 10;
+  notaTrienalDecimoSeg: number = 10;
 
   idNotaBienal1: string;
-  notaBienal1Decimo: string;
-  notaBienal1DecimoPrim: string;
+  notaBienal1Decimo: number = 10;
+  notaBienal1DecimoPrim: number = 10;
 
   idNotaBienal2: string;
-  notaBienal2Decimo: string;
-  notaBienal2DecimoPrim: string;
+  notaBienal2Decimo: number = 10;
+  notaBienal2DecimoPrim: number = 10;
 
   idNotaAnual1: string;
-  notaAnual1DecimoSeg: string;
+  notaAnual1DecimoSeg: number = 10;
   idNotaAnual2: string;
-  notaAnual2DecimoSeg: string;
+  notaAnual2DecimoSeg: number = 10;
 
   codigoCurso: string;
   idUtilizador: string;
@@ -104,37 +107,41 @@ export class CalculoNotaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // initialize component
+
   }
 
+  public printt():void{
+    console.log(this.notaAnual2DecimoSeg);
+  }
 
   public salvarNota(): void {
+
     const params: NotaParams = {
-      notaPortuguesDecimo: this.notaPortuguesDecimo,
-      notaPortuguesDecimoPrim: this.notaPortuguesDecimoPrim,
-      notaPortuguesDecimoSeg: this.notaPortuguesDecimoSeg,
-      notaEduFisicaDecimo: this.notaEduFisicaDecimo,
-      notaEduFisicaDecimoPrim: this.notaEduFisicaDecimoPrim,
-      notaEduFisicaDecimoSeg: this.notaEduFisicaDecimoSeg,
-      notaFilosofiaDecimo: this.notaFilosofiaDecimo,
-      notaFilosofiaDecimoPrim: this.notaFilosofiaDecimoPrim,
+      notaPortuguesDecimo: this.notaPortuguesDecimo.toString(),
+      notaPortuguesDecimoPrim: this.notaPortuguesDecimoPrim.toString(),
+      notaPortuguesDecimoSeg: this.notaPortuguesDecimoSeg.toString(),
+      notaEduFisicaDecimo: this.notaEduFisicaDecimo.toString(),
+      notaEduFisicaDecimoPrim: this.notaEduFisicaDecimoPrim.toString(),
+      notaEduFisicaDecimoSeg: this.notaEduFisicaDecimoSeg.toString(),
+      notaFilosofiaDecimo: this.notaFilosofiaDecimo.toString(),
+      notaFilosofiaDecimoPrim: this.notaFilosofiaDecimoPrim.toString(),
       idLingua: this.idLingua,
-      notaLinguaDecimo: this.otaLinguaDecimo,
-      notaLinguaDecimoPrim: this.notaLinguaDecimoPrim,
+      notaLinguaDecimo: this.notaLinguaDecimo.toString(),
+      notaLinguaDecimoPrim: this.notaLinguaDecimoPrim.toString(),
       idNotaTrienal: this.idNotaTrienal,
-      notaTrienalDecimo: this.notaTrienalDecimo,
-      notaTrienalDecimoPrim: this.notaTrienalDecimoPrim,
-      notaTrienalDecimoSeg: this.notaTrienalDecimoSeg,
+      notaTrienalDecimo: this.notaTrienalDecimo.toString(),
+      notaTrienalDecimoPrim: this.notaTrienalDecimoPrim.toString(),
+      notaTrienalDecimoSeg: this.notaTrienalDecimoSeg.toString(),
       idNotaBienal1: this.idNotaBienal1,
-      notaBienal1Decimo: this.notaBienal1Decimo,
-      notaBienal1DecimoPrim: this.notaBienal1DecimoPrim,
+      notaBienal1Decimo: this.notaBienal1Decimo.toString(),
+      notaBienal1DecimoPrim: this.notaBienal1DecimoPrim.toString(),
       idNotaBienal2: this.idNotaBienal2,
-      notaBienal2Decimo: this.notaBienal2Decimo,
-      notaBienal2DecimoPrim: this.notaBienal2DecimoPrim,
+      notaBienal2Decimo: this.notaBienal2Decimo.toString(),
+      notaBienal2DecimoPrim: this.notaBienal2DecimoPrim.toString(),
       idNotaAnual1: this.idNotaAnual1,
-      notaAnual1DecimoSeg: this.notaAnual1DecimoSeg,
+      notaAnual1DecimoSeg: this.notaAnual1DecimoSeg.toString(),
       idNotaAnual2: this.idNotaAnual2,
-      notaAnual2DecimoSeg: this.notaAnual2DecimoSeg,
+      notaAnual2DecimoSeg: this.notaAnual2DecimoSeg.toString(),
       codigoCurso: this.codigoCurso,
       idUtilizador: this.idUtilizador,
       cifPortugues: this.cifPortugues,
@@ -198,7 +205,7 @@ export class CalculoNotaComponent implements OnInit {
     this.notaFilosofiaDecimo = data.notaFilosofiaDecimo;
     this.notaFilosofiaDecimoPrim = data.notaFilosofiaDecimoPrim;
     this.idLingua = data.idLingua;
-    this.otaLinguaDecimo = data.otaLinguaDecimo;
+    this.notaLinguaDecimo = data.otaLinguaDecimo;
     this.notaLinguaDecimoPrim = data.notaLinguaDecimoPrim;
     this.idNotaTrienal = data.idNotaTrienal;
     this.notaTrienalDecimo = data.notaTrienalDecimo;
@@ -261,4 +268,17 @@ export class CalculoNotaComponent implements OnInit {
     this.notaExameExterno2Anual2 = data.notaExameExterno2Anual2;
   }
 
+  validateMaxValue(event: any) {
+    let value = event;
+
+    if (typeof event === 'object' && event.target) {
+      value = parseInt(event.target.value, 10);
+    }
+
+    if (value > 20) {
+      value = 20;
+    }
+
+    this.notaAnual1DecimoSeg = value;
+  }
 }

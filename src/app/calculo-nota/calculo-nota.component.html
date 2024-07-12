@@ -74,7 +74,7 @@
                 <input type="number" min="1" max="20" placeholder="10">
               </td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+                <input type="number" min="1" max="20" placeholder="10" >
               </td>
               <td>
                 <input type="checkbox">
@@ -98,7 +98,7 @@
             <tr>
               <td>Língua Estrangeira</td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+                <input type="number" min="1" max="20" placeholder="10" >
               </td>
               <td>
                 <input type="number" min="1" max="20" placeholder="10">
@@ -241,13 +241,13 @@
             <tr>
               <td>Nome Anual I</td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+
               </td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+
               </td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+                <input type="number" min="1" max="20" [(ngModel)]="notaAnual1DecimoSeg" >
               </td>
               <td></td>
               <td></td>
@@ -268,13 +268,13 @@
             <tr>
               <td>Nome Anual II</td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+
               </td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+
               </td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+                <input type="number" min="1" max="20" [(ngModel)]="notaAnual2DecimoSeg">
               </td>
               <td></td>
               <td></td>
@@ -282,7 +282,7 @@
                 <input type="checkbox">
               </td>
               <td>
-                <input type="checkbox">
+                <input type="checkbox" (click)="printt()">
               </td>
               <td>
                 <input disabled placeholder="10">
