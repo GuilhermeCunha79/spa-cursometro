@@ -12,7 +12,7 @@
           <thead>
           <tr>
             <th>
-              <select>
+              <select [(ngModel)]="codigoCurso">
                 <option disabled selected>Curso Frequentado</option>
                 <option>Ciências e Tecnologias</option>
                 <option>Ciências Socioeconómicas</option>
@@ -74,7 +74,7 @@
                 <input type="number" min="1" max="20" placeholder="10">
               </td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10" >
+
               </td>
               <td>
                 <input type="checkbox">
@@ -104,7 +104,7 @@
                 <input type="number" min="1" max="20" placeholder="10">
               </td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+
               </td>
               <td></td>
               <td></td>
@@ -148,7 +148,13 @@
               </td>
             </tr>
             <tr>
-              <td>Nome Trienal Específica</td>
+              <td>
+                <select>
+                  <option selected disabled>Nome Trienal Específica</option>
+                  <option>Opção 1</option>
+                  <option>Opção 1</option>
+                </select>
+              </td>
               <td>
                 <input type="number" min="1" max="20" placeholder="10">
               </td>
@@ -178,15 +184,20 @@
               </td>
             </tr>
             <tr>
-              <td>Nome Trienal Específica I</td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+                <select>
+                <option selected disabled>Nome Bienal Específica I</option>
+                <option>Opção 1</option>
+                <option>Opção 1</option>
+              </select>
               </td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+                <input type="number" min="1" max="20" placeholder="10" [(ngModel)]="notaBienal1Decimo">
               </td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+                <input type="number" min="1" max="20" placeholder="10" [(ngModel)]="notaBienal1DecimoPrim">
+              </td>
+              <td>
               </td>
               <td>
                 <input type="checkbox">
@@ -208,15 +219,21 @@
               </td>
             </tr>
             <tr>
-              <td>Nome Trienal Específica II</td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+                <select>
+                  <option selected disabled>Nome Bienal Específica II</option>
+                  <option>Opção 1</option>
+                  <option>Opção 1</option>
+                </select>
               </td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+                <input type="number" min="1" max="20" placeholder="10" [(ngModel)]="notaBienal2Decimo">
               </td>
               <td>
-                <input type="number" min="1" max="20" placeholder="10">
+                <input type="number" min="1" max="20" placeholder="10" [(ngModel)]="notaBienal2DecimoPrim">
+              </td>
+              <td>
+
               </td>
               <td>
                 <input type="checkbox">
@@ -239,7 +256,13 @@
             </tr>
 
             <tr>
-              <td>Nome Anual I</td>
+              <td>
+                <select>
+                  <option class="genericOption" selected disabled>Nome Anual I</option>
+                  <option>Opção 1</option>
+                  <option>Opção 1</option>
+                </select>
+              </td>
               <td>
 
               </td>
@@ -266,15 +289,17 @@
             </tr>
 
             <tr>
-              <td>Nome Anual II</td>
               <td>
-
+                <ul id="lista-disciplinas" (click)=disciplinas('lista-disciplinas')></ul>
               </td>
               <td>
 
               </td>
               <td>
-                <input type="number" min="1" max="20" [(ngModel)]="notaAnual2DecimoSeg">
+
+              </td>
+              <td>
+                <input type="number" min="1" max="20" [(ngModel)]="notaAnual2DecimoSeg" (change)="validarNumero(notaAnual2DecimoSeg)">
               </td>
               <td></td>
               <td></td>
@@ -282,7 +307,7 @@
                 <input type="checkbox">
               </td>
               <td>
-                <input type="checkbox" (click)="printt()">
+                <input type="checkbox">
               </td>
               <td>
                 <input disabled placeholder="10">

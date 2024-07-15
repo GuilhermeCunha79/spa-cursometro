@@ -3,9 +3,11 @@ import {NotaVisualizacao} from "../domain/nota-visualizacao";
 import {CalculoNotaService} from "../services/calculo-nota/calculo-nota-service";
 import {NotaParams} from "../interfaces/notaParams";
 import {FormControl, FormsModule, Validators} from "@angular/forms";
+import {Disciplina} from "../interfaces/disciplina";
+
 @Component({
   imports: [FormsModule],
-  standalone:true,
+  standalone: true,
   selector: 'app-calculo-nota',
   templateUrl: './calculo-nota.component.html',
   styleUrl: './calculo-nota.component.css',
@@ -46,6 +48,7 @@ export class CalculoNotaComponent implements OnInit {
   notaAnual1DecimoSeg: number = 10;
   idNotaAnual2: string;
   notaAnual2DecimoSeg: number = 10;
+
 
   codigoCurso: string;
   idUtilizador: string;
@@ -102,6 +105,76 @@ export class CalculoNotaComponent implements OnInit {
   notaExameExterno1Anual2: string;
   notaExameExterno2Anual2: string;
 
+  disciplinasCurso: Disciplina[] = [
+  ];
+
+  disciplinasCiencias: Disciplina[] = [
+    {nome: 'Física e Química A', value: 'FQA', tipo: 2},
+    {nome: 'Biologia e Geologia', value: 'BG', tipo: 2},
+    {nome: 'Geometria Descritiva A', value: 'GDA', tipo: 2},
+    {nome: 'Matemática A', value: 'MATA', tipo: 3},
+    {nome: 'Biologia', value: 'BIO', tipo: 1},
+    {nome: 'Física', value: 'FIS', tipo: 1},
+    {nome: 'Geologia', value: 'GEO', tipo: 1},
+    {nome: 'Química', value: 'QUI', tipo: 1},
+    {nome: 'Antropologia', value: 'ANT', tipo: 1},
+    {nome: 'Aplicações Informáticas B', value: 'API', tipo: 1},
+    {nome: 'Ciência Política', value: 'CP', tipo: 1},
+    {nome: 'Clássicos de Literatura', value: 'CL', tipo: 1},
+    {nome: 'Direito', value: 'DIR', tipo: 1},
+    {nome: 'Economia C', value: 'ECOC', tipo: 1},
+    {nome: 'Filosofia A', value: 'FILA', tipo: 1},
+    {nome: 'Grego', value: 'GRE', tipo: 1},
+    {nome: 'Geografia C', value: 'GEOC', tipo: 1},
+    {nome: 'Língua Estrangeira', value: 'LIN', tipo: 1},
+    {nome: 'Psicologia B', value: 'PSI', tipo: 1}
+  ];
+
+  disciplinasCienciasSocio: Disciplina[] = [
+    {nome: 'Economia A', value: 'ECOA', tipo: 2},
+    {nome: 'Geografia A', value: 'GEOA', tipo: 2},
+    {nome: 'História B', value: 'HISB', tipo: 2},
+
+    {nome: 'Matemática A', value: 'MATA', tipo: 3},
+
+    {nome: 'Economia C', value: 'ECOC', tipo: 1},
+    {nome: 'Geografia C', value: 'GEOC', tipo: 1},
+    {nome: 'Sociologia', value: 'SOC', tipo: 1},
+    {nome: 'Química', value: 'QUI', tipo: 1},
+    {nome: 'Antropologia', value: 'ANT', tipo: 1},
+    {nome: 'Aplicações Informáticas B', value: 'API', tipo: 1},
+    {nome: 'Ciência Política', value: 'CP', tipo: 1},
+    {nome: 'Clássicos de Literatura', value: 'CL', tipo: 1},
+    {nome: 'Direito', value: 'DIR', tipo: 1},
+    {nome: 'Filosofia A', value: 'FILA', tipo: 1},
+    {nome: 'Grego', value: 'GRE', tipo: 1},
+    {nome: 'Língua Estrangeira', value: 'LIN', tipo: 1},
+    {nome: 'Psicologia B', value: 'PSI', tipo: 1}
+  ];
+
+  disciplinasArtesVisuais: Disciplina[] = [
+    {nome: 'Desenho A', value: 'DESA', tipo: 3},
+
+    {nome: 'Geometria Descritiva A', value: 'GDA', tipo: 2},
+    {nome: 'Matemática B', value: 'MATB', tipo: 2},
+    {nome: 'História da Cultura e das Artes', value: 'HCA', tipo: 2},
+
+    {nome: 'Oficina de Artes', value: 'OFA', tipo: 1},
+    {nome: 'Oficina de Multimédia B', value: 'OMB', tipo: 1},
+    {nome: 'Materiais e Tecnologias', value: 'MT', tipo: 1},
+    {nome: 'Antropologia', value: 'ANT', tipo: 1},
+    {nome: 'Aplicações Informáticas B', value: 'API', tipo: 1},
+    {nome: 'Ciência Política', value: 'CP', tipo: 1},
+    {nome: 'Clássicos de Literatura', value: 'CL', tipo: 1},
+    {nome: 'Direito', value: 'DIR', tipo: 1},
+    {nome: 'Economia C', value: 'ECOC', tipo: 1},
+    {nome: 'Filosofia A', value: 'FILA', tipo: 1},
+    {nome: 'Grego', value: 'GRE', tipo: 1},
+    {nome: 'Geografia C', value: 'GEOC', tipo: 1},
+    {nome: 'Língua Estrangeira', value: 'LIN', tipo: 1},
+    {nome: 'Psicologia B', value: 'PSI', tipo: 1}
+  ];
+
   constructor(private calculoNotaService: CalculoNotaService) {
 
   }
@@ -110,7 +183,36 @@ export class CalculoNotaComponent implements OnInit {
 
   }
 
-  public printt():void{
+  public validarNumero(num: any): boolean {
+    const value = parseInt(num, 10);
+
+    if (value < 1 || value > 20) {
+      alert('Insira um nuémro entre 1 e 10.');
+      return false;
+    }
+    return true;
+  }
+
+  public disciplinas(idLista: string) {
+    document.addEventListener("DOMContentLoaded", () => {
+      const lista = document.getElementById(idLista) as HTMLUListElement;
+
+      if (!lista) {
+        console.error(`Elemento com ID '${idLista}' não encontrado.`);
+        return;
+      }
+
+      /*this.disciplinass.forEach(disciplina => {
+        const li = document.createElement('li');
+        li.textContent = `${disciplina.nome} (${disciplina.value})`;
+        lista.appendChild(li);
+      });*/
+
+    })
+  }
+
+
+  public printt(): void {
     console.log(this.notaAnual2DecimoSeg);
   }
 
