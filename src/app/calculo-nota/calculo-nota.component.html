@@ -12,12 +12,12 @@
           <thead>
           <tr>
             <th>
-              <select [(ngModel)]="codigoCurso">
+              <select [(ngModel)]="codigoCurso" (change)="disciplinaCurso()">
                 <option disabled selected>Curso Frequentado</option>
-                <option>Ciências e Tecnologias</option>
-                <option>Ciências Socioeconómicas</option>
-                <option>Artes Visuais</option>
-                <option>Línguas e Humanidades</option>
+                <option value="CT">Ciências e Tecnologias</option>
+                <option value="CS">Ciências Socioeconómicas</option>
+                <option value="AV">Artes Visuais</option>
+                <option value="LH">Línguas e Humanidades</option>
               </select>
             </th>
           </tr>
@@ -149,10 +149,9 @@
             </tr>
             <tr>
               <td>
-                <select>
-                  <option selected disabled>Nome Trienal Específica</option>
-                  <option>Opção 1</option>
-                  <option>Opção 1</option>
+                <select placeholder="Nome Trienal Específica"  [(ngModel)]="idNotaTrienal" id="notaTrienal">
+                  <option  disabled>Nome Trienal Específica</option>
+                  <option *ngFor="let disciplina of disciplinasCurso | filterByValue: 2" [value]="disciplina.value">{{disciplina.nome}}</option>
                 </select>
               </td>
               <td>
@@ -185,7 +184,7 @@
             </tr>
             <tr>
               <td>
-                <select>
+                <select [(ngModel)]="idNotaBienal1">
                 <option selected disabled>Nome Bienal Específica I</option>
                 <option>Opção 1</option>
                 <option>Opção 1</option>
@@ -290,7 +289,7 @@
 
             <tr>
               <td>
-                <ul id="lista-disciplinas" (click)=disciplinas('lista-disciplinas')></ul>
+
               </td>
               <td>
 

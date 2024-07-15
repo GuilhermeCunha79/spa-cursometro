@@ -4,9 +4,11 @@ import {CalculoNotaService} from "../services/calculo-nota/calculo-nota-service"
 import {NotaParams} from "../interfaces/notaParams";
 import {FormControl, FormsModule, Validators} from "@angular/forms";
 import {Disciplina} from "../interfaces/disciplina";
+import {NgForOf} from "@angular/common";
+import {FilterByValuePipe} from "../pipes/valuePipe";
 
 @Component({
-  imports: [FormsModule],
+  imports: [FormsModule, NgForOf, FilterByValuePipe],
   standalone: true,
   selector: 'app-calculo-nota',
   templateUrl: './calculo-nota.component.html',
@@ -31,26 +33,26 @@ export class CalculoNotaComponent implements OnInit {
   notaLinguaDecimo: number = 10;
   notaLinguaDecimoPrim: number = 10;
 
-  idNotaTrienal: string;
+  idNotaTrienal: string = "Nota Trienal Específica";
   notaTrienalDecimo: number = 10;
   notaTrienalDecimoPrim: number = 10;
   notaTrienalDecimoSeg: number = 10;
 
-  idNotaBienal1: string;
+  idNotaBienal1: string = "Nota Bienal Específica I";
   notaBienal1Decimo: number = 10;
   notaBienal1DecimoPrim: number = 10;
 
-  idNotaBienal2: string;
+  idNotaBienal2: string = "Nota Bienal Específica II";
   notaBienal2Decimo: number = 10;
   notaBienal2DecimoPrim: number = 10;
 
-  idNotaAnual1: string;
+  idNotaAnual1: string = "Nota Anual I";
   notaAnual1DecimoSeg: number = 10;
-  idNotaAnual2: string;
+  idNotaAnual2: string = "Nota Anual Ii";
   notaAnual2DecimoSeg: number = 10;
 
 
-  codigoCurso: string;
+  codigoCurso: string = "Curso Frequentado";
   idUtilizador: string;
 
   cifPortugues: number;
@@ -105,8 +107,7 @@ export class CalculoNotaComponent implements OnInit {
   notaExameExterno1Anual2: string;
   notaExameExterno2Anual2: string;
 
-  disciplinasCurso: Disciplina[] = [
-  ];
+  disciplinasCurso: Disciplina[] = [];
 
   disciplinasCiencias: Disciplina[] = [
     {nome: 'Física e Química A', value: 'FQA', tipo: 2},
@@ -175,12 +176,37 @@ export class CalculoNotaComponent implements OnInit {
     {nome: 'Psicologia B', value: 'PSI', tipo: 1}
   ];
 
+  disciplinasLinguas: Disciplina[] = [
+    {nome: 'História A', value: 'HISA', tipo: 3},
+
+    {nome: 'Geografia A', value: 'GEOA', tipo: 2},
+    {nome: 'MACS', value: 'MACS', tipo: 2},
+    {nome: 'Latim A', value: 'LATA', tipo: 2},
+    {nome: 'Língua Estrangeira', value: 'LIN', tipo: 2},
+    {nome: 'Literatura Portuguesa', value: 'LIT', tipo: 2},
+
+
+    {nome: 'Filosofia A', value: 'FILA', tipo: 1},
+    {nome: 'Geografia C', value: 'GEOC', tipo: 1},
+    {nome: 'Latim B', value: 'LATB', tipo: 1},
+    {nome: 'Língua Estrangeira', value: 'LIN', tipo: 1},
+    {nome: 'Literatura de Língua Portuguesa', value: 'LLP', tipo: 1},
+    {nome: 'Psicologia B', value: 'PSIB', tipo: 1},
+    {nome: 'Sociologia', value: 'SOC', tipo: 1},
+    {nome: 'Antropologia', value: 'ANT', tipo: 1},
+    {nome: 'Aplicações Informáticas B', value: 'APIB', tipo: 1},
+    {nome: 'Ciência Política', value: 'CP', tipo: 1},
+    {nome: 'Clássicos de Literatura', value: 'CLA', tipo: 1},
+    {nome: 'Direito', value: 'DIR', tipo: 1},
+    {nome: 'Economia C', value: 'ECOC', tipo: 1},
+    {nome: 'Grego', value: 'GRE', tipo: 1}
+  ];
+
   constructor(private calculoNotaService: CalculoNotaService) {
 
   }
 
   ngOnInit(): void {
-
   }
 
   public validarNumero(num: any): boolean {
@@ -193,22 +219,23 @@ export class CalculoNotaComponent implements OnInit {
     return true;
   }
 
-  public disciplinas(idLista: string) {
-    document.addEventListener("DOMContentLoaded", () => {
-      const lista = document.getElementById(idLista) as HTMLUListElement;
+  public disciplinaCurso() {
+    console.log("this.codigoCurso");
+    if (this.codigoCurso == "CT") {
+      this.disciplinasCurso = this.disciplinasCiencias;
+    } else if (this.codigoCurso == "CS") {
+      this.disciplinasCurso = this.disciplinasCienciasSocio;
+    } else if (this.codigoCurso == "AV") {
+      this.disciplinasCurso = this.disciplinasArtesVisuais;
+    } else if (this.codigoCurso == "LH") {
+      this.disciplinasCurso = this.disciplinasLinguas;
+    }
 
-      if (!lista) {
-        console.error(`Elemento com ID '${idLista}' não encontrado.`);
-        return;
-      }
-
-      /*this.disciplinass.forEach(disciplina => {
-        const li = document.createElement('li');
-        li.textContent = `${disciplina.nome} (${disciplina.value})`;
-        lista.appendChild(li);
-      });*/
-
-    })
+    /*this.disciplinass.forEach(disciplina => {
+      const li = document.createElement('li');
+      li.textContent = `${disciplina.nome} (${disciplina.value})`;
+      lista.appendChild(li);
+    });*/
   }
 
 
