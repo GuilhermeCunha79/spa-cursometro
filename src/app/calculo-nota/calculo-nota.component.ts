@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, NgModule, OnInit} from '@angular/core';
 import {NotaVisualizacao} from "../domain/nota-visualizacao";
 import {CalculoNotaService} from "../services/calculo-nota/calculo-nota-service";
 import {NotaParams} from "../interfaces/notaParams";
-import {FormControl, FormsModule, Validators} from "@angular/forms";
+import {FormsModule} from "@angular/forms";
 import {Disciplina} from "../interfaces/disciplina";
 import {NgForOf} from "@angular/common";
 import {FilterByValuePipe} from "../pipes/valuePipe";
@@ -16,6 +16,8 @@ import {FilterByValuePipe} from "../pipes/valuePipe";
   host: {ngSkipHydration: 'true'}
 })
 export class CalculoNotaComponent implements OnInit {
+
+  disciplina: Disciplina;
 
   notaVisualizacao: NotaVisualizacao;
 
@@ -33,7 +35,7 @@ export class CalculoNotaComponent implements OnInit {
   notaLinguaDecimo: number = 10;
   notaLinguaDecimoPrim: number = 10;
 
-  idNotaTrienal: string = "Nota Trienal Específica";
+  idNotaTrienal: string = "Selecione um curso...";
   notaTrienalDecimo: number = 10;
   notaTrienalDecimoPrim: number = 10;
   notaTrienalDecimoSeg: number = 10;
@@ -48,7 +50,7 @@ export class CalculoNotaComponent implements OnInit {
 
   idNotaAnual1: string = "Nota Anual I";
   notaAnual1DecimoSeg: number = 10;
-  idNotaAnual2: string = "Nota Anual Ii";
+  idNotaAnual2: string = "Nota Anual II";
   notaAnual2DecimoSeg: number = 10;
 
 
@@ -108,6 +110,8 @@ export class CalculoNotaComponent implements OnInit {
   notaExameExterno2Anual2: string;
 
   disciplinasCurso: Disciplina[] = [];
+
+  disciplinasCursoSelecao: Disciplina[] = [];
 
   disciplinasCiencias: Disciplina[] = [
     {nome: 'Física e Química A', value: 'FQA', tipo: 2},
@@ -202,7 +206,7 @@ export class CalculoNotaComponent implements OnInit {
     {nome: 'Grego', value: 'GRE', tipo: 1}
   ];
 
-  constructor(private calculoNotaService: CalculoNotaService) {
+  constructor(private calculoNotaService: CalculoNotaService, private cdr: ChangeDetectorRef) {
 
   }
 
@@ -220,7 +224,7 @@ export class CalculoNotaComponent implements OnInit {
   }
 
   public disciplinaCurso() {
-    console.log("this.codigoCurso");
+
     if (this.codigoCurso == "CT") {
       this.disciplinasCurso = this.disciplinasCiencias;
     } else if (this.codigoCurso == "CS") {
@@ -230,7 +234,8 @@ export class CalculoNotaComponent implements OnInit {
     } else if (this.codigoCurso == "LH") {
       this.disciplinasCurso = this.disciplinasLinguas;
     }
-
+    this.cdr.detectChanges();
+    this.disciplinasCursoSelecao = this.disciplinasCurso;
     /*this.disciplinass.forEach(disciplina => {
       const li = document.createElement('li');
       li.textContent = `${disciplina.nome} (${disciplina.value})`;
@@ -238,9 +243,26 @@ export class CalculoNotaComponent implements OnInit {
     });*/
   }
 
+  public adicionarDisciplinasArray(codigo: string): void {
+
+
+    if (this.disciplinasCursoSelecao.some(disciplina => disciplina.value === codigo)) {
+
+      this.ordenarArray(this.disciplinasCursoSelecao,"nome")
+      this.disciplinasCursoSelecao = this.disciplinasCursoSelecao.filter(disciplina => disciplina.value !== codigo);
+    } else {
+      console.log(this.disciplinasCursoSelecao);
+      let disciplinaEncontrada = this.disciplinasCurso.find(disciplina => disciplina.value === codigo);
+      if (disciplinaEncontrada !== undefined) {
+        console.log("asdasdadasdas");
+        this.disciplinasCursoSelecao.push(disciplinaEncontrada);
+        this.ordenarArray(this.disciplinasCursoSelecao,"nome")
+      }
+    }
+  }
 
   public printt(): void {
-    console.log(this.notaAnual2DecimoSeg);
+    console.log(this.idNotaAnual2);
   }
 
   public salvarNota(): void {
@@ -409,5 +431,17 @@ export class CalculoNotaComponent implements OnInit {
     }
 
     this.notaAnual1DecimoSeg = value;
+  }
+
+  public ordenarArray(arr: any[], propriedade: string): any[] {
+    return arr.sort((a, b) => {
+      if (a[propriedade] < b[propriedade]) {
+        return -1; // Retorna um valor negativo se 'a' deve vir antes de 'b'
+      }
+      if (a[propriedade] > b[propriedade]) {
+        return 1; // Retorna um valor positivo se 'b' deve vir antes de 'a'
+      }
+      return 0; // Retorna 0 se os valores forem iguais
+    });
   }
 }
