@@ -111,6 +111,8 @@ export class CalculoNotaComponent implements OnInit {
 
   disciplinasCurso: Disciplina[] = [];
 
+  disciplinaSelecionada: Disciplina[] = [];
+
   disciplinasCursoSelecao: Disciplina[] = [];
 
   disciplinasCiencias: Disciplina[] = [
@@ -236,6 +238,7 @@ export class CalculoNotaComponent implements OnInit {
     }
     this.cdr.detectChanges();
     this.disciplinasCursoSelecao = this.disciplinasCurso;
+    this.disciplinaSelecionada = this.disciplinasCurso;
     /*this.disciplinass.forEach(disciplina => {
       const li = document.createElement('li');
       li.textContent = `${disciplina.nome} (${disciplina.value})`;
@@ -243,23 +246,44 @@ export class CalculoNotaComponent implements OnInit {
     });*/
   }
 
-  public adicionarDisciplinasArray(codigo: string): void {
+  listaBienal1: Disciplina[] = [];
+  listaBienal2: Disciplina[] = [];
 
+  public adicionarDisciplinasArray(lista: number, codigo: string): void {
+    this.disciplinaSelecionada = [];
 
-    if (this.disciplinasCursoSelecao.some(disciplina => disciplina.value === codigo)) {
-
-      this.ordenarArray(this.disciplinasCursoSelecao,"nome")
-      this.disciplinasCursoSelecao = this.disciplinasCursoSelecao.filter(disciplina => disciplina.value !== codigo);
-    } else {
-      console.log(this.disciplinasCursoSelecao);
-      let disciplinaEncontrada = this.disciplinasCurso.find(disciplina => disciplina.value === codigo);
-      if (disciplinaEncontrada !== undefined) {
-        console.log("asdasdadasdas");
-        this.disciplinasCursoSelecao.push(disciplinaEncontrada);
-        this.ordenarArray(this.disciplinasCursoSelecao,"nome")
+    const adicionarDisciplina = (listaBienal: Disciplina[], codigo: string): void => {
+      const disciplinaEncontrada = this.disciplinasCurso.find(disciplina => disciplina.value === codigo);
+      if (disciplinaEncontrada) {
+        if (listaBienal.length === 1) {
+          // Move a disciplina atual de volta para selecao
+          const disciplinaAtual = listaBienal[0];
+          if (!this.disciplinasCursoSelecao.some(d => d.value === disciplinaAtual.value)) {
+            this.disciplinasCursoSelecao.push(disciplinaAtual);
+          }
+        }
+        // Atualiza listaBienal com a nova disciplina
+        listaBienal.length = 0; // Limpa o array
+        listaBienal.push(disciplinaEncontrada);
       }
+    };
+
+    if (lista === 1) {
+      adicionarDisciplina(this.listaBienal1, codigo);
+      console.log("Estado de listaBienal1:", this.listaBienal1);
+    } else if (lista === 2) {
+      adicionarDisciplina(this.listaBienal2, codigo);
+      console.log("Estado de listaBienal2:", this.listaBienal2);
     }
+
+    // Atualiza disciplinasCursoSelecao removendo as selecionadas
+    const selecionados = [...this.listaBienal1, ...this.listaBienal2].map(d => d.value);
+    this.disciplinasCursoSelecao = this.disciplinasCurso.filter(disciplina => !selecionados.includes(disciplina.value));
+
+    console.log("Estado de disciplinasCursoSelecao:", this.disciplinasCursoSelecao);
+    this.ordenarArray(this.disciplinasCursoSelecao, "nome");
   }
+
 
   public printt(): void {
     console.log(this.idNotaAnual2);
