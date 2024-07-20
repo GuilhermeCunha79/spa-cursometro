@@ -48,6 +48,12 @@ export class CalculoNotaComponent implements OnInit {
   notaBienal2Decimo: number = 10;
   notaBienal2DecimoPrim: number = 10;
 
+  ultimaDisciplinaSelecionada1: any = null;
+  ultimaDisciplinaSelecionada2: any = null;
+  ultimaDisciplinaSelecionada3: any = null;
+  ultimaDisciplinaSelecionada4: any = null;
+
+
   idNotaAnual1: string = "Nota Anual I";
   notaAnual1DecimoSeg: number = 10;
   idNotaAnual2: string = "Nota Anual II";
@@ -111,8 +117,6 @@ export class CalculoNotaComponent implements OnInit {
 
   disciplinasCurso: Disciplina[] = [];
 
-  disciplinaSelecionada: Disciplina[] = [];
-
   disciplinasCursoSelecao: Disciplina[] = [];
 
   disciplinasCiencias: Disciplina[] = [
@@ -120,21 +124,21 @@ export class CalculoNotaComponent implements OnInit {
     {nome: 'Biologia e Geologia', value: 'BG', tipo: 2},
     {nome: 'Geometria Descritiva A', value: 'GDA', tipo: 2},
     {nome: 'Matemática A', value: 'MATA', tipo: 3},
-    {nome: 'Biologia', value: 'BIO', tipo: 1},
-    {nome: 'Física', value: 'FIS', tipo: 1},
-    {nome: 'Geologia', value: 'GEO', tipo: 1},
-    {nome: 'Química', value: 'QUI', tipo: 1},
     {nome: 'Antropologia', value: 'ANT', tipo: 1},
     {nome: 'Aplicações Informáticas B', value: 'API', tipo: 1},
+    {nome: 'Biologia', value: 'BIO', tipo: 1},
     {nome: 'Ciência Política', value: 'CP', tipo: 1},
     {nome: 'Clássicos de Literatura', value: 'CL', tipo: 1},
     {nome: 'Direito', value: 'DIR', tipo: 1},
     {nome: 'Economia C', value: 'ECOC', tipo: 1},
     {nome: 'Filosofia A', value: 'FILA', tipo: 1},
-    {nome: 'Grego', value: 'GRE', tipo: 1},
+    {nome: 'Física', value: 'FIS', tipo: 1},
     {nome: 'Geografia C', value: 'GEOC', tipo: 1},
+    {nome: 'Geologia', value: 'GEO', tipo: 1},
+    {nome: 'Grego', value: 'GRE', tipo: 1},
     {nome: 'Língua Estrangeira', value: 'LIN', tipo: 1},
-    {nome: 'Psicologia B', value: 'PSI', tipo: 1}
+    {nome: 'Psicologia B', value: 'PSI', tipo: 1},
+    {nome: 'Química', value: 'QUI', tipo: 1}
   ];
 
   disciplinasCienciasSocio: Disciplina[] = [
@@ -238,19 +242,16 @@ export class CalculoNotaComponent implements OnInit {
     }
     this.cdr.detectChanges();
     this.disciplinasCursoSelecao = this.disciplinasCurso;
-    this.disciplinaSelecionada = this.disciplinasCurso;
-    /*this.disciplinass.forEach(disciplina => {
-      const li = document.createElement('li');
-      li.textContent = `${disciplina.nome} (${disciplina.value})`;
-      lista.appendChild(li);
-    });*/
+
   }
 
   listaBienal1: Disciplina[] = [];
   listaBienal2: Disciplina[] = [];
 
+  listaAnual1: Disciplina[] = [];
+  listaAnual2: Disciplina[] = [];
+
   public adicionarDisciplinasArray(lista: number, codigo: string): void {
-    this.disciplinaSelecionada = [];
 
     const adicionarDisciplina = (listaBienal: Disciplina[], codigo: string): void => {
       const disciplinaEncontrada = this.disciplinasCurso.find(disciplina => disciplina.value === codigo);
@@ -262,6 +263,7 @@ export class CalculoNotaComponent implements OnInit {
             this.disciplinasCursoSelecao.push(disciplinaAtual);
           }
         }
+
         // Atualiza listaBienal com a nova disciplina
         listaBienal.length = 0; // Limpa o array
         listaBienal.push(disciplinaEncontrada);
@@ -270,24 +272,30 @@ export class CalculoNotaComponent implements OnInit {
 
     if (lista === 1) {
       adicionarDisciplina(this.listaBienal1, codigo);
-      console.log("Estado de listaBienal1:", this.listaBienal1);
+      this.ultimaDisciplinaSelecionada1 = this.disciplinasCurso.find(disciplina => disciplina.value === codigo);
     } else if (lista === 2) {
       adicionarDisciplina(this.listaBienal2, codigo);
-      console.log("Estado de listaBienal2:", this.listaBienal2);
+      this.ultimaDisciplinaSelecionada2 = this.disciplinasCurso.find(disciplina => disciplina.value === codigo);
+    } else if (lista === 3) {
+      adicionarDisciplina(this.listaAnual1, codigo);
+      this.ultimaDisciplinaSelecionada3 = this.disciplinasCurso.find(disciplina => disciplina.value === codigo);
+    } else if (lista === 4) {
+      adicionarDisciplina(this.listaAnual2, codigo);
+      this.ultimaDisciplinaSelecionada4 = this.disciplinasCurso.find(disciplina => disciplina.value === codigo);
     }
-
     // Atualiza disciplinasCursoSelecao removendo as selecionadas
-    const selecionados = [...this.listaBienal1, ...this.listaBienal2].map(d => d.value);
+    const selecionados = [...this.listaBienal1, ...this.listaBienal2, ...this.listaAnual1, ...this.listaAnual2].map(d => d.value);
     this.disciplinasCursoSelecao = this.disciplinasCurso.filter(disciplina => !selecionados.includes(disciplina.value));
-
-    console.log("Estado de disciplinasCursoSelecao:", this.disciplinasCursoSelecao);
     this.ordenarArray(this.disciplinasCursoSelecao, "nome");
   }
 
-
-  public printt(): void {
-    console.log(this.idNotaAnual2);
+  getOpcoes(lista: Disciplina[], ultimaSelecionada: Disciplina | null) {
+    if (ultimaSelecionada) {
+      return [ultimaSelecionada, ...lista.filter(d => d.value !== ultimaSelecionada.value)];
+    }
+    return this.ordenarArray(lista, "nome");
   }
+
 
   public salvarNota(): void {
 

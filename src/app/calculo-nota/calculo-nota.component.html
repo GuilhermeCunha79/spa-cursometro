@@ -183,7 +183,7 @@
               <td>
                 <select ngDefaultControl [(ngModel)]="idNotaBienal1" (change)="adicionarDisciplinasArray(1,idNotaBienal1)">
                   <option selected disabled>Nome Bienal Específica I</option>
-                  <option *ngFor="let disciplina of disciplinasCursoSelecao | filterByValue: 2" [value]="disciplina.value">{{disciplina.nome}}</option>
+                  <option *ngFor="let disciplina of getOpcoes(disciplinasCursoSelecao, ultimaDisciplinaSelecionada1) | filterByValue: 2" [value]="disciplina.value">{{disciplina.nome}}</option>
                 </select>
               </td>
               <td>
@@ -217,7 +217,7 @@
               <td>
                 <select ngDefaultControl [(ngModel)]="idNotaBienal2" (change)="adicionarDisciplinasArray(2,idNotaBienal2)">
                   <option selected disabled>Nome Bienal Específica II</option>
-                  <option *ngFor="let disciplina of disciplinasCursoSelecao | filterByValue: 2" [ngValue]="disciplina.value">{{disciplina.nome}}</option>
+                  <option *ngFor="let disciplina of getOpcoes(disciplinasCursoSelecao, ultimaDisciplinaSelecionada2) | filterByValue: 2" [ngValue]="disciplina.value">{{disciplina.nome}}</option>
                 </select>
               </td>
               <td>
@@ -253,7 +253,7 @@
               <td>
                 <select ngDefaultControl [(ngModel)]="idNotaAnual1" (change)="adicionarDisciplinasArray(3,idNotaAnual1)">
                   <option class="genericOption" selected disabled>Nome Anual I</option>
-                  <option *ngFor="let disciplina of disciplinasCursoSelecao | filterByValue: 1" [ngValue]="disciplina.value">{{disciplina.nome}}</option>
+                  <option *ngFor="let disciplina of getOpcoes(disciplinasCursoSelecao, ultimaDisciplinaSelecionada3) | filterByValue: 1" [ngValue]="disciplina.value">{{disciplina.nome}}</option>
                 </select>
               </td>
               <td>
@@ -285,7 +285,7 @@
               <td>
                 <select ngDefaultControl [(ngModel)]="idNotaAnual2" (change)="adicionarDisciplinasArray(4,idNotaAnual2)">
                   <option class="genericOption" selected disabled>Nome Anual II</option>
-                  <option *ngFor="let disciplina of disciplinasCursoSelecao | filterByValue: 1" [ngValue]="disciplina.value">{{disciplina.nome}}</option>
+                  <option *ngFor="let disciplina of getOpcoes(disciplinasCursoSelecao, ultimaDisciplinaSelecionada4) | filterByValue: 1" [ngValue]="disciplina.value">{{disciplina.nome}}</option>
                 </select>
               </td>
               <td>
