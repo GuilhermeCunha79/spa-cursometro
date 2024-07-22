@@ -2,13 +2,13 @@ import {ChangeDetectorRef, Component, NgModule, OnInit} from '@angular/core';
 import {NotaVisualizacao} from "../domain/nota-visualizacao";
 import {CalculoNotaService} from "../services/calculo-nota/calculo-nota-service";
 import {NotaParams} from "../interfaces/notaParams";
-import {FormsModule} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Disciplina} from "../interfaces/disciplina";
 import {NgForOf} from "@angular/common";
 import {FilterByValuePipe} from "../pipes/valuePipe";
 
 @Component({
-  imports: [FormsModule, NgForOf, FilterByValuePipe],
+  imports: [FormsModule, NgForOf, FilterByValuePipe, ReactiveFormsModule],
   standalone: true,
   selector: 'app-calculo-nota',
   templateUrl: './calculo-nota.component.html',
@@ -56,7 +56,7 @@ export class CalculoNotaComponent implements OnInit {
 
   idNotaAnual1: string = "Nota Anual I";
   notaAnual1DecimoSeg: number = 10;
-  idNotaAnual2: string = "Nota Anual II";
+  idNotaAnual2: string = "Nota Anual I";
   notaAnual2DecimoSeg: number = 10;
 
 
@@ -185,7 +185,7 @@ export class CalculoNotaComponent implements OnInit {
     {nome: 'Língua Estrangeira', value: 'LIN', tipo: 1},
     {nome: 'Psicologia B', value: 'PSI', tipo: 1}
   ];
-
+  form: FormGroup;
   disciplinasLinguas: Disciplina[] = [
     {nome: 'História A', value: 'HISA', tipo: 3},
 
@@ -212,8 +212,14 @@ export class CalculoNotaComponent implements OnInit {
     {nome: 'Grego', value: 'GRE', tipo: 1}
   ];
 
-  constructor(private calculoNotaService: CalculoNotaService, private cdr: ChangeDetectorRef) {
+  listaBienal1: Disciplina[] = [];
+  listaBienal2: Disciplina[] = [];
 
+  listaAnual1: Disciplina[] = [];
+  listaAnual2: Disciplina[] = [];
+
+
+  constructor(private calculoNotaService: CalculoNotaService, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -244,13 +250,6 @@ export class CalculoNotaComponent implements OnInit {
     this.disciplinasCursoSelecao = this.disciplinasCurso;
 
   }
-
-  listaBienal1: Disciplina[] = [];
-  listaBienal2: Disciplina[] = [];
-
-  listaAnual1: Disciplina[] = [];
-  listaAnual2: Disciplina[] = [];
-
   public adicionarDisciplinasArray(lista: number, codigo: string): void {
 
     const adicionarDisciplina = (listaBienal: Disciplina[], codigo: string): void => {
