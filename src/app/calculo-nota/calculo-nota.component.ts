@@ -64,38 +64,38 @@ export class CalculoNotaComponent implements OnInit {
   idUtilizador: string;
 
   cifPortugues: number;
-  notaExameInterno1Portugues: string;
-  notaExameInterno2Portugues: string;
-  notaExameExterno1Portugues: string;
-  notaExameExterno2Portugues: string;
+  notaExameInterno1Portugues: number = 100;
+  notaExameInterno2Portugues: number = 100;
+  notaExameExterno1Portugues: number = 100;
+  notaExameExterno2Portugues: number = 100;
   isIngressoPortugues: boolean;
 
   cifFilosofia: number;
-  notaExameInterno1Filosofia: string;
-  notaExameInterno2Filosofia: string;
-  notaExameExterno1Filosofia: string;
-  notaExameExterno2Filosofia: string;
+  notaExameInterno1Filosofia: number = 100;
+  notaExameInterno2Filosofia: number = 100;
+  notaExameExterno1Filosofia: number = 100;
+  notaExameExterno2Filosofia: number = 100;
   isIngressoFilosofia: boolean;
 
   cifTrienal: number;
-  notaExameInterno1Trienal: string;
-  notaExameInterno2Trienal: string;
-  notaExameExterno1Trienal: string;
-  notaExameExterno2Trienal: string;
+  notaExameInterno1Trienal: number = 100;
+  notaExameInterno2Trienal: number = 100;
+  notaExameExterno1Trienal: number = 100;
+  notaExameExterno2Trienal: number = 100;
   isIngressoTrienal: boolean;
 
   cifBienal1: number;
-  notaExameInterno1Bienal1: string;
-  notaExameInterno2Bienal1: string;
-  notaExameExterno1Bienal1: string;
-  notaExameExterno2Bienal1: string;
+  notaExameInterno1Bienal1: number = 100;
+  notaExameInterno2Bienal1: number = 100;
+  notaExameExterno1Bienal1: number = 100;
+  notaExameExterno2Bienal1: number = 100;
   isIngressoBienal1: boolean;
 
   cifBienal2: number;
-  notaExameInterno1Bienal2: string;
-  notaExameInterno2Bienal2: string;
-  notaExameExterno1Bienal2: string;
-  notaExameExterno2Bienal2: string;
+  notaExameInterno1Bienal2: number = 100;
+  notaExameInterno2Bienal2: number = 100;
+  notaExameExterno1Bienal2: number = 100;
+  notaExameExterno2Bienal2: number = 100;
   isIngressoBienal2: boolean;
 
   cifEduFisica: number;
@@ -225,6 +225,30 @@ export class CalculoNotaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public isIngressoCheck(elementoId: string){
+    switch(elementoId){
+      case 'isIngressoPortugues':
+        this.isIngressoPortugues=!this.isIngressoPortugues;
+        break;
+      case 'isIngressoFilosofia':
+        this.isIngressoFilosofia=!this.isIngressoFilosofia;
+        break;
+      case 'isIngressoBienal1':
+        this.isIngressoBienal1=!this.isIngressoBienal1;
+        break;
+      case 'isIngressoBienal2':
+        this.isIngressoBienal2=!this.isIngressoBienal2;
+        break;
+      case 'isIngressoTrienal':
+        this.isIngressoTrienal=!this.isIngressoTrienal;
+        break;
+    }
+  }
+
+  public externoInternoCheck(){
+
+  }
+
   public validarNumero(num: any): boolean {
     const value = parseInt(num, 10);
 
@@ -295,7 +319,9 @@ export class CalculoNotaComponent implements OnInit {
     return this.ordenarArray(lista, "nome");
   }
 
-
+public printt(){
+  console.log(this.isIngressoPortugues);
+}
   public salvarNota(): void {
 
     const params: NotaParams = {
@@ -327,34 +353,34 @@ export class CalculoNotaComponent implements OnInit {
       codigoCurso: this.codigoCurso,
       idUtilizador: this.idUtilizador,
       cifPortugues: this.cifPortugues,
-      notaExameInterno1Portugues: this.notaExameInterno1Portugues,
-      notaExameInterno2Portugues: this.notaExameInterno2Portugues,
-      notaExameExterno1Portugues: this.notaExameExterno1Portugues,
-      notaExameExterno2Portugues: this.notaExameExterno2Portugues,
+      notaExameInterno1Portugues: this.notaExameInterno1Portugues.toString(),
+      notaExameInterno2Portugues: this.notaExameInterno2Portugues.toString(),
+      notaExameExterno1Portugues: this.notaExameExterno1Portugues.toString(),
+      notaExameExterno2Portugues: this.notaExameExterno2Portugues.toString(),
       isIngressoPortugues: this.isIngressoPortugues,
       cifFilosofia: this.cifFilosofia,
-      notaExameInterno1Filosofia: this.notaExameInterno1Filosofia,
-      notaExameInterno2Filosofia: this.notaExameInterno2Filosofia,
-      notaExameExterno1Filosofia: this.notaExameExterno1Filosofia,
-      notaExameExterno2Filosofia: this.notaExameExterno2Filosofia,
+      notaExameInterno1Filosofia: this.notaExameInterno1Filosofia.toString(),
+      notaExameInterno2Filosofia: this.notaExameInterno2Filosofia.toString(),
+      notaExameExterno1Filosofia: this.notaExameExterno1Filosofia.toString(),
+      notaExameExterno2Filosofia: this.notaExameExterno2Filosofia.toString(),
       isIngressoFilosofia: this.isIngressoFilosofia,
       cifTrienal: this.cifTrienal,
-      notaExameInterno1Trienal: this.notaExameInterno1Trienal,
-      notaExameInterno2Trienal: this.notaExameInterno2Trienal,
-      notaExameExterno1Trienal: this.notaExameExterno1Trienal,
-      notaExameExterno2Trienal: this.notaExameExterno2Trienal,
+      notaExameInterno1Trienal: this.notaExameInterno1Trienal.toString(),
+      notaExameInterno2Trienal: this.notaExameInterno2Trienal.toString(),
+      notaExameExterno1Trienal: this.notaExameExterno1Trienal.toString(),
+      notaExameExterno2Trienal: this.notaExameExterno2Trienal.toString(),
       isIngressoTrienal: this.isIngressoTrienal,
       cifBienal1: this.cifBienal1,
-      notaExameInterno1Bienal1: this.notaExameInterno1Bienal1,
-      notaExameInterno2Bienal1: this.notaExameInterno2Bienal1,
-      notaExameExterno1Bienal1: this.notaExameExterno1Bienal1,
-      notaExameExterno2Bienal1: this.notaExameExterno2Bienal1,
+      notaExameInterno1Bienal1: this.notaExameInterno1Bienal1.toString(),
+      notaExameInterno2Bienal1: this.notaExameInterno2Bienal1.toString(),
+      notaExameExterno1Bienal1: this.notaExameExterno1Bienal1.toString(),
+      notaExameExterno2Bienal1: this.notaExameExterno2Bienal1.toString(),
       isIngressoBienal1: this.isIngressoBienal1,
       cifBienal2: this.cifBienal2,
-      notaExameInterno1Bienal2: this.notaExameInterno1Bienal2,
-      notaExameInterno2Bienal2: this.notaExameInterno2Bienal2,
-      notaExameExterno1Bienal2: this.notaExameExterno1Bienal2,
-      notaExameExterno2Bienal2: this.notaExameExterno2Bienal2,
+      notaExameInterno1Bienal2: this.notaExameInterno1Bienal2.toString(),
+      notaExameInterno2Bienal2: this.notaExameInterno2Bienal2.toString(),
+      notaExameExterno1Bienal2: this.notaExameExterno1Bienal2.toString(),
+      notaExameExterno2Bienal2: this.notaExameExterno2Bienal2.toString(),
       isIngressoBienal2: this.isIngressoBienal2,
       cifEduFisica: this.cifEduFisica,
       notaExameExterno1EduFisica: this.notaExameExterno1EduFisica,

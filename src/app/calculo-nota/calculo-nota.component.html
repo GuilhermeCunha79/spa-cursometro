@@ -38,19 +38,16 @@
             <tr>
               <td>Português</td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaPortuguesDecimo" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaPortuguesDecimoPrim" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaPortuguesDecimoSeg" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="0" max="200" placeholder="100" maxlength="3">
-              </td>
-              <td>
-                <input class="selecaoInternoExterno" type="checkbox">
+                <input [(ngModel)]="notaExameInterno1Portugues" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="0" max="200" placeholder="100" maxlength="3">
               </td>
               <td>
                 <input class="selecaoInternoExterno" type="checkbox">
@@ -59,19 +56,22 @@
                 <input class="selecaoInternoExterno" type="checkbox">
               </td>
               <td>
-                <input class="notaDisciplinaInput" disabled placeholder="10">
+                <input class="selecaoInternoExterno" type="checkbox">
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox" value="true">
+                <input [(ngModel)]="cifPortugues" class="notaDisciplinaInput" disabled placeholder="10">
+              </td>
+              <td>
+                <input [ngModel]="isIngressoPortugues" class="selecaoInternoExterno" type="checkbox" (change)="isIngressoCheck('isIngressoPortugues')">
               </td>
             </tr>
             <tr>
               <td>Filosofia</td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaFilosofiaDecimo" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaFilosofiaDecimoPrim" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td>
 
@@ -89,19 +89,19 @@
                 <input class="selecaoInternoExterno" type="checkbox">
               </td>
               <td>
-                <input class="notaDisciplinaInput" disabled placeholder="10">
+                <input [(ngModel)]="cifFilosofia" class="notaDisciplinaInput" disabled placeholder="10">
               </td>
-              <td  class="selecaoInternoExterno">
-                <input type="checkbox" value="true">
+              <td>
+                <input [ngModel]="isIngressoFilosofia" type="checkbox" value="true" class="selecaoInternoExterno" (change)="isIngressoCheck('isIngressoFilosofia')">
               </td>
             </tr>
             <tr>
               <td>Língua Estrangeira</td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaLinguaDecimo" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaLinguaDecimoPrim" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td>
 
@@ -115,7 +115,7 @@
                 <input class="selecaoInternoExterno" type="checkbox">
               </td>
               <td>
-                <input class="notaDisciplinaInput" disabled placeholder="10">
+                <input [(ngModel)]="cifLingua" class="notaDisciplinaInput" disabled placeholder="10">
               </td>
               <td>
 
@@ -124,13 +124,13 @@
             <tr>
               <td>Educação Física</td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaEduFisicaDecimo" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaEduFisicaDecimoPrim" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaEduFisicaDecimoSeg" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td></td>
               <td></td>
@@ -141,7 +141,7 @@
                 <input class="selecaoInternoExterno" type="checkbox">
               </td>
               <td>
-                <input class="notaDisciplinaInput" disabled placeholder="10">
+                <input [(ngModel)]="cifEduFisica" class="notaDisciplinaInput" disabled placeholder="10">
               </td>
               <td>
 
@@ -152,31 +152,31 @@
                 {{disciplina.nome}}
               </td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaTrienalDecimo" id="notaDecimoTrienal" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaTrienalDecimoPrim" id="notaDecimoPrimTrienal" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td>
-                <input class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
+                <input [(ngModel)]="notaTrienalDecimoSeg" id="notaDecimoSegTrienal" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" placeholder="10" maxlength="2">
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox">
+                <input id="checkInterno1" class="selecaoInternoExterno" type="checkbox">
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox">
+                <input id="checkInterno2" class="selecaoInternoExterno" type="checkbox">
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox">
+                <input id="checkExterno1" class="selecaoInternoExterno" type="checkbox">
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox">
+                <input id="checkExterno2" class="selecaoInternoExterno" type="checkbox">
               </td>
               <td>
-                <input class="notaDisciplinaInput" disabled placeholder="10">
+                <input [(ngModel)]="cifTrienal" class="notaDisciplinaInput" disabled placeholder="10">
               </td>
-              <td class="selecaoInternoExterno">
-                <input class="selecaoInternoExterno" type="checkbox">
+              <td >
+                <input class="selecaoInternoExterno" type="checkbox" (change)="isIngressoCheck('isIngressoTrienal')">
               </td>
             </tr>
             <tr>
@@ -207,10 +207,10 @@
                 <input class="selecaoInternoExterno" type="checkbox">
               </td>
               <td>
-                <input class="notaDisciplinaInput" disabled placeholder="10">
+                <input [ngModel]="cifBienal1" class="notaDisciplinaInput" disabled placeholder="10">
               </td>
-              <td class="selecaoInternoExterno">
-                <input type="checkbox" value="true">
+              <td >
+                <input [ngModel]="isIngressoBienal1" type="checkbox" class="selecaoInternoExterno" (change)="isIngressoCheck('isIngressoBienal1')">
               </td>
             </tr>
             <tr>
@@ -245,7 +245,7 @@
                 <input class="notaDisciplinaInput" disabled placeholder="10">
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox" value="true">
+                <input [ngModel]="isIngressoBienal2" class="selecaoInternoExterno" type="checkbox" (change)="isIngressoCheck('isIngressoBienal2')">
               </td>
             </tr>
 
@@ -263,7 +263,7 @@
 
               </td>
               <td>
-                <input maxlength="2" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" ngDefaultControl type="number" min="1" max="20" [(ngModel)]="notaAnual1DecimoSeg" >
+                <input [(ngModel)]="notaAnual1DecimoSeg" maxlength="2" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" ngDefaultControl type="number" min="1" max="20">
               </td>
               <td></td>
               <td></td>
@@ -274,7 +274,7 @@
                 <input class="selecaoInternoExterno" type="checkbox">
               </td>
               <td>
-                <input class="notaDisciplinaInput" disabled placeholder="10">
+                <input [(ngModel)]="cifAnual1" class="notaDisciplinaInput" disabled placeholder="10">
               </td>
               <td>
 
@@ -295,7 +295,7 @@
 
               </td>
               <td>
-                <input class="notaDisciplinaInput" ngDefaultControl oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" maxlength="2" [(ngModel)]="notaAnual2DecimoSeg" (change)="validarNumero(notaAnual2DecimoSeg)">
+                <input [(ngModel)]="notaAnual2DecimoSeg" class="notaDisciplinaInput" ngDefaultControl oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="1" max="20" maxlength="2" (change)="validarNumero(notaAnual2DecimoSeg)">
               </td>
               <td></td>
               <td></td>
@@ -306,7 +306,7 @@
                 <input  class="selecaoInternoExterno" type="checkbox">
               </td>
               <td>
-                <input class="notaDisciplinaInput" disabled placeholder="10" maxlength="2" >
+                <input [(ngModel)]="cifAnual2" class="notaDisciplinaInput" disabled placeholder="10" maxlength="2" >
               </td>
               <td>
 
