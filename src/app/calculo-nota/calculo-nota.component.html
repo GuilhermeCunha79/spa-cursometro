@@ -50,13 +50,16 @@
                 <input [(ngModel)]="notaExameInterno1Portugues" class="notaDisciplinaInput" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" min="0" max="200" placeholder="100" maxlength="3">
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox">
+                <input class="selecaoInternoExterno" type="checkbox" (change)="isInternoExternoCheck('internoPortugues2')">
+                <input *ngIf="portuguesInterno2Check" class="notaDisciplinaInput" type="number" [(ngModel)]="notaExameInterno2Portugues">
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox">
+                <input class="selecaoInternoExterno" type="checkbox" (change)="isInternoExternoCheck('externoPortugues1')">
+                <input *ngIf="portuguesExterno1Check" class="notaDisciplinaInput" type="number" [(ngModel)]="notaExameExterno1Portugues">
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox">
+                <input class="selecaoInternoExterno" type="checkbox" (change)="isInternoExternoCheck('externoPortugues2')">
+                <input *ngIf="portuguesExterno2Check" class="notaDisciplinaInput" type="number" [(ngModel)]="notaExameExterno2Portugues">
               </td>
               <td>
                 <input [(ngModel)]="cifPortugues" class="notaDisciplinaInput" disabled placeholder="10">
@@ -77,16 +80,20 @@
 
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox">
+                <input class="selecaoInternoExterno" type="checkbox" (change)="isInternoExternoCheck('internoFilosofia1')">
+                <input *ngIf="filosofiaInterno1Check" class="notaDisciplinaInput" type="number" [(ngModel)]="notaExameInterno1Filosofia">
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox">
+                <input class="selecaoInternoExterno" type="checkbox" (change)="isInternoExternoCheck('internoFilosofia2')">
+                <input *ngIf="filosofiaInterno2Check" class="notaDisciplinaInput" type="number" [(ngModel)]="notaExameInterno2Filosofia">
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox">
+                <input class="selecaoInternoExterno" type="checkbox" (change)="isInternoExternoCheck('externoFilosofia1')">
+                <input *ngIf="filosofiaExterno1Check" class="notaDisciplinaInput" type="number" [(ngModel)]="notaExameExterno1Filosofia">
               </td>
               <td>
-                <input class="selecaoInternoExterno" type="checkbox">
+                <input class="selecaoInternoExterno" type="checkbox" (change)="isInternoExternoCheck('externoFilosofia2')">
+                <input *ngIf="filosofiaExterno2Check" class="notaDisciplinaInput" type="number" [(ngModel)]="notaExameExterno2Filosofia">
               </td>
               <td>
                 <input [(ngModel)]="cifFilosofia" class="notaDisciplinaInput" disabled placeholder="10">

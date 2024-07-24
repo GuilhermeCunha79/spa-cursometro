@@ -4,11 +4,11 @@ import {CalculoNotaService} from "../services/calculo-nota/calculo-nota-service"
 import {NotaParams} from "../interfaces/notaParams";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Disciplina} from "../interfaces/disciplina";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {FilterByValuePipe} from "../pipes/valuePipe";
 
 @Component({
-  imports: [FormsModule, NgForOf, FilterByValuePipe, ReactiveFormsModule],
+  imports: [FormsModule, NgForOf, FilterByValuePipe, ReactiveFormsModule, NgIf],
   standalone: true,
   selector: 'app-calculo-nota',
   templateUrl: './calculo-nota.component.html',
@@ -18,6 +18,7 @@ import {FilterByValuePipe} from "../pipes/valuePipe";
 export class CalculoNotaComponent implements OnInit {
 
   disciplina: Disciplina;
+
 
   notaVisualizacao: NotaVisualizacao;
 
@@ -69,6 +70,9 @@ export class CalculoNotaComponent implements OnInit {
   notaExameExterno1Portugues: number = 100;
   notaExameExterno2Portugues: number = 100;
   isIngressoPortugues: boolean;
+  portuguesInterno2Check: boolean = false;
+  portuguesExterno1Check: boolean = false;
+  portuguesExterno2Check: boolean = false;
 
   cifFilosofia: number;
   notaExameInterno1Filosofia: number = 100;
@@ -76,6 +80,11 @@ export class CalculoNotaComponent implements OnInit {
   notaExameExterno1Filosofia: number = 100;
   notaExameExterno2Filosofia: number = 100;
   isIngressoFilosofia: boolean;
+  filosofiaInterno1Check: boolean = false;
+  filosofiaInterno2Check: boolean = false;
+  filosofiaExterno1Check: boolean = false;
+  filosofiaExterno2Check: boolean = false;
+
 
   cifTrienal: number;
   notaExameInterno1Trienal: number = 100;
@@ -225,27 +234,53 @@ export class CalculoNotaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public isIngressoCheck(elementoId: string){
-    switch(elementoId){
+  public isIngressoCheck(elementoId: string) {
+    switch (elementoId) {
       case 'isIngressoPortugues':
-        this.isIngressoPortugues=!this.isIngressoPortugues;
+        this.isIngressoPortugues = !this.isIngressoPortugues;
         break;
       case 'isIngressoFilosofia':
-        this.isIngressoFilosofia=!this.isIngressoFilosofia;
+        this.isIngressoFilosofia = !this.isIngressoFilosofia;
         break;
       case 'isIngressoBienal1':
-        this.isIngressoBienal1=!this.isIngressoBienal1;
+        this.isIngressoBienal1 = !this.isIngressoBienal1;
         break;
       case 'isIngressoBienal2':
-        this.isIngressoBienal2=!this.isIngressoBienal2;
-        break;
-      case 'isIngressoTrienal':
-        this.isIngressoTrienal=!this.isIngressoTrienal;
+        this.isIngressoBienal2 = !this.isIngressoBienal2;
         break;
     }
   }
 
-  public externoInternoCheck(){
+  public isInternoExternoCheck(elementoId: string) {
+    switch (elementoId) {
+      case 'internoPortugues2':
+        this.portuguesInterno2Check = !this.portuguesInterno2Check;
+        break;
+      case 'externoPortugues1':
+        this.portuguesExterno1Check = !this.portuguesExterno1Check;
+        break;
+      case 'externoPortugues2':
+        this.portuguesExterno2Check = !this.portuguesExterno2Check;
+        break;
+      case 'internoFilosofia1':
+        this.filosofiaInterno1Check = !this.filosofiaInterno1Check;
+        break;
+      case 'internoFilosofia2':
+        this.filosofiaInterno2Check = !this.filosofiaInterno2Check;
+        break;
+      case 'externoFilosofia1':
+        this.filosofiaExterno1Check = !this.filosofiaExterno1Check;
+        break;
+      case 'externoFilosofia2':
+        this.filosofiaExterno2Check = !this.filosofiaExterno2Check;
+        break;
+      case 'isIngressoTrienal':
+        this.isIngressoTrienal = !this.isIngressoTrienal;
+        break;
+    }
+  }
+
+  public externoInternoCheck() {
 
   }
 
@@ -274,6 +309,7 @@ export class CalculoNotaComponent implements OnInit {
     this.disciplinasCursoSelecao = this.disciplinasCurso;
 
   }
+
   public adicionarDisciplinasArray(lista: number, codigo: string): void {
 
     const adicionarDisciplina = (listaBienal: Disciplina[], codigo: string): void => {
@@ -319,9 +355,10 @@ export class CalculoNotaComponent implements OnInit {
     return this.ordenarArray(lista, "nome");
   }
 
-public printt(){
-  console.log(this.isIngressoPortugues);
-}
+  public printt() {
+    console.log(this.isIngressoPortugues);
+  }
+
   public salvarNota(): void {
 
     const params: NotaParams = {
