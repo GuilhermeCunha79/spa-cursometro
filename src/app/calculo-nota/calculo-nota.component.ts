@@ -92,6 +92,10 @@ export class CalculoNotaComponent implements OnInit {
   notaExameExterno1Trienal: number = 100;
   notaExameExterno2Trienal: number = 100;
   isIngressoTrienal: boolean;
+  trienalInterno1Check: boolean = false;
+  trienalInterno2Check: boolean = false;
+  trienalExterno1Check: boolean = false;
+  trienalExterno2Check: boolean = false;
 
   cifBienal1: number;
   notaExameInterno1Bienal1: number = 100;
@@ -99,6 +103,10 @@ export class CalculoNotaComponent implements OnInit {
   notaExameExterno1Bienal1: number = 100;
   notaExameExterno2Bienal1: number = 100;
   isIngressoBienal1: boolean;
+  bienal1Interno1Check: boolean = false;
+  bienal1Interno2Check: boolean = false;
+  bienal1Externo1Check: boolean = false;
+  bienal1Externo2Check: boolean = false;
 
   cifBienal2: number;
   notaExameInterno1Bienal2: number = 100;
@@ -106,23 +114,35 @@ export class CalculoNotaComponent implements OnInit {
   notaExameExterno1Bienal2: number = 100;
   notaExameExterno2Bienal2: number = 100;
   isIngressoBienal2: boolean;
+  bienal2Interno1Check: boolean = false;
+  bienal2Interno2Check: boolean = false;
+  bienal2Externo1Check: boolean = false;
+  bienal2Externo2Check: boolean = false;
 
   cifEduFisica: number;
-  notaExameExterno1EduFisica: string;
-  notaExameExterno2EduFisica: string;
+  notaExameExterno1EduFisica: number = 100;
+  notaExameExterno2EduFisica: number = 100;
+  eduFisicaExterno1Check: boolean = false;
+  eduFisicaExterno2Check: boolean = false;
 
   cifLingua: number;
-  notaExameExterno1Lingua: string;
-  notaExameExterno2Lingua: string;
+  notaExameExterno1Lingua: number = 100;
+  notaExameExterno2Lingua: number = 100;
   isIngressoLingua: boolean;
+  linguaExterno1Check: boolean = false;
+  linguaExterno2Check: boolean = false;
 
   cifAnual1: number;
-  notaExameExterno1Anual1: string;
-  notaExameExterno2Anual1: string;
+  notaExameExterno1Anual1: number = 100;
+  notaExameExterno2Anual1: number = 100;
+  anual1Externo1Check: boolean = false;
+  anual1Externo2Check: boolean = false;
 
   cifAnual2: number;
-  notaExameExterno1Anual2: string;
-  notaExameExterno2Anual2: string;
+  notaExameExterno1Anual2: number = 100;
+  notaExameExterno2Anual2: number = 100;
+  anual2Externo1Check: boolean = false;
+  anual2Externo2Check: boolean = false;
 
   disciplinasCurso: Disciplina[] = [];
 
@@ -274,8 +294,65 @@ export class CalculoNotaComponent implements OnInit {
       case 'externoFilosofia2':
         this.filosofiaExterno2Check = !this.filosofiaExterno2Check;
         break;
-      case 'isIngressoTrienal':
-        this.isIngressoTrienal = !this.isIngressoTrienal;
+      case 'externoLingua1':
+        this.linguaExterno1Check = !this.linguaExterno1Check;
+        break;
+      case 'externoLingua2':
+        this.linguaExterno2Check = !this.linguaExterno2Check;
+        break;
+      case 'externoEduFisica1':
+        this.eduFisicaExterno1Check = !this.eduFisicaExterno1Check;
+        break;
+      case 'externoEduFisica2':
+        this.eduFisicaExterno2Check = !this.eduFisicaExterno2Check;
+        break;
+      case 'internoTrienal1':
+        this.trienalInterno1Check = !this.trienalInterno1Check;
+        break;
+      case 'internoTrienal2':
+        this.trienalInterno2Check = !this.trienalInterno2Check;
+        break;
+      case 'externoTrienal1':
+        this.trienalExterno1Check = !this.trienalExterno1Check;
+        break;
+      case 'externoTrienal2':
+        this.trienalExterno2Check = !this.trienalExterno2Check;
+        break;
+      case 'interno1Bienal1':
+        this.bienal1Interno1Check = !this.bienal1Interno1Check;
+        break;
+      case 'interno2Bienal1':
+        this.bienal1Interno2Check = !this.bienal1Interno2Check;
+        break;
+      case 'externo1Bienal1':
+        this.bienal1Externo1Check = !this.bienal1Externo1Check;
+        break;
+      case 'externo2Bienal1':
+        this.bienal1Externo2Check = !this.bienal1Externo2Check;
+        break;
+      case 'interno1Bienal2':
+        this.bienal2Interno1Check = !this.bienal2Interno1Check;
+        break;
+      case 'interno2Bienal2':
+        this.bienal2Interno2Check = !this.bienal2Interno2Check;
+        break;
+      case 'externo1Bienal2':
+        this.bienal2Externo1Check = !this.bienal2Externo1Check;
+        break;
+      case 'externo2Bienal2':
+        this.bienal2Externo2Check = !this.bienal2Externo2Check;
+        break;
+      case 'externo1Anual1':
+        this.anual1Externo1Check = !this.anual1Externo1Check;
+        break;
+      case 'externo2Anual1':
+        this.anual1Externo2Check = !this.anual1Externo2Check;
+        break;
+      case 'externo1Anual2':
+        this.anual2Externo1Check = !this.anual2Externo1Check;
+        break;
+      case 'externo2Anual2':
+        this.anual2Externo2Check = !this.anual2Externo2Check;
         break;
     }
   }
@@ -420,18 +497,18 @@ export class CalculoNotaComponent implements OnInit {
       notaExameExterno2Bienal2: this.notaExameExterno2Bienal2.toString(),
       isIngressoBienal2: this.isIngressoBienal2,
       cifEduFisica: this.cifEduFisica,
-      notaExameExterno1EduFisica: this.notaExameExterno1EduFisica,
-      notaExameExterno2EduFisica: this.notaExameExterno2EduFisica,
+      notaExameExterno1EduFisica: this.notaExameExterno1EduFisica.toString(),
+      notaExameExterno2EduFisica: this.notaExameExterno2EduFisica.toString(),
       cifLingua: this.cifLingua,
-      notaExameExterno1Lingua: this.notaExameExterno1Lingua,
-      notaExameExterno2Lingua: this.notaExameExterno2Lingua,
+      notaExameExterno1Lingua: this.notaExameExterno1Lingua.toString(),
+      notaExameExterno2Lingua: this.notaExameExterno2Lingua.toString(),
       isIngressoLingua: this.isIngressoLingua,
       cifAnual1: this.cifAnual1,
-      notaExameExterno1Anual1: this.notaExameExterno1Anual1,
-      notaExameExterno2Anual1: this.notaExameExterno2Anual1,
+      notaExameExterno1Anual1: this.notaExameExterno1Anual1.toString(),
+      notaExameExterno2Anual1: this.notaExameExterno2Anual1.toString(),
       cifAnual2: this.cifAnual2,
-      notaExameExterno1Anual2: this.notaExameExterno1Anual2,
-      notaExameExterno2Anual2: this.notaExameExterno2Anual2
+      notaExameExterno1Anual2: this.notaExameExterno1Anual2.toString(),
+      notaExameExterno2Anual2: this.notaExameExterno2Anual2.toString()
     };
 
     this.calculoNotaService.salvarGrelhaNotas(params).subscribe(data => {
