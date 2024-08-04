@@ -364,8 +364,8 @@ export class CalculoNotaComponent implements OnInit {
   public validarNumero(num: any): boolean {
     const value = parseInt(num, 10);
 
-    if (value < 1 || value > 20) {
-      alert('Insira um nuémro entre 1 e 10.');
+    if (value < 0 || value > 20) {
+      alert('Insira um número inteiro entre 0 e 20.');
       return false;
     }
     return true;
