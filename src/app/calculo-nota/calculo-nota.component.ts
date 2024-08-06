@@ -17,9 +17,6 @@ import {FilterByValuePipe} from "../pipes/valuePipe";
 })
 export class CalculoNotaComponent implements OnInit {
 
-  disciplina: Disciplina;
-
-
   notaVisualizacao: NotaVisualizacao;
 
   notaPortuguesDecimo: number = 10;
@@ -54,12 +51,10 @@ export class CalculoNotaComponent implements OnInit {
   ultimaDisciplinaSelecionada3: any = null;
   ultimaDisciplinaSelecionada4: any = null;
 
-
   idNotaAnual1: string = "Nota Anual I";
   notaAnual1DecimoSeg: number = 10;
   idNotaAnual2: string = "Nota Anual I";
   notaAnual2DecimoSeg: number = 10;
-
 
   codigoCurso: string = "Curso Frequentado";
   idUtilizador: string;
@@ -84,7 +79,6 @@ export class CalculoNotaComponent implements OnInit {
   filosofiaInterno2Check: boolean = false;
   filosofiaExterno1Check: boolean = false;
   filosofiaExterno2Check: boolean = false;
-
 
   cifTrienal: number;
   notaExameInterno1Trienal: number = 100;

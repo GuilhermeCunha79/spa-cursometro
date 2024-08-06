@@ -99,7 +99,7 @@
                 <input [(ngModel)]="cifFilosofia" class="notaDisciplinaInput" disabled placeholder="10">
               </td>
               <td>
-                <input [ngModel]="isIngressoFilosofia" type="checkbox" value="true" class="selecaoInternoExterno" (change)="isIngressoCheck('isIngressoFilosofia')">
+                <input [disabled]="!filosofiaInterno1Check && !filosofiaInterno2Check && !filosofiaExterno1Check && !filosofiaExterno2Check" [ngModel]="isIngressoFilosofia" type="checkbox" value="true" class="selecaoInternoExterno" (change)="isIngressoCheck('isIngressoFilosofia')">
               </td>
             </tr>
             <tr>
@@ -191,7 +191,7 @@
                 <input [(ngModel)]="cifTrienal" class="notaDisciplinaInput" disabled placeholder="10">
               </td>
               <td >
-                <input class="selecaoInternoExterno" type="checkbox" (change)="isIngressoCheck('isIngressoTrienal')">
+                <input [disabled]="!trienalInterno1Check && !trienalInterno2Check && !trienalExterno1Check && !trienalExterno2Check" class="selecaoInternoExterno" type="checkbox" (change)="isIngressoCheck('isIngressoTrienal')">
               </td>
             </tr>
             <tr>
@@ -229,7 +229,7 @@
                 <input [ngModel]="cifBienal1" class="notaDisciplinaInput" disabled placeholder="10">
               </td>
               <td >
-                <input [ngModel]="isIngressoBienal1" type="checkbox" class="selecaoInternoExterno" (change)="isIngressoCheck('isIngressoBienal1')">
+                <input [disabled]="!bienal1Interno1Check && !bienal1Interno2Check && !bienal1Externo1Check && !bienal1Externo2Check" [ngModel]="isIngressoBienal1" type="checkbox" class="selecaoInternoExterno" (change)="isIngressoCheck('isIngressoBienal1')">
               </td>
             </tr>
             <tr>
@@ -268,7 +268,7 @@
                 <input class="notaDisciplinaInput" disabled placeholder="10">
               </td>
               <td>
-                <input [ngModel]="isIngressoBienal2" class="selecaoInternoExterno" type="checkbox" (change)="isIngressoCheck('isIngressoBienal2')">
+                <input [disabled]="!bienal2Interno1Check && !bienal2Interno2Check && !bienal2Externo1Check && !bienal2Externo2Check" [ngModel]="isIngressoBienal2" class="selecaoInternoExterno" type="checkbox" (change)="isIngressoCheck('isIngressoBienal2')">
               </td>
             </tr>
 
