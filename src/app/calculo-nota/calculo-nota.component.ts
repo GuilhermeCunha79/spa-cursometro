@@ -19,6 +19,10 @@ export class CalculoNotaComponent implements OnInit {
 
   notaVisualizacao: NotaVisualizacao;
 
+  mediaSecundario: number = 100;
+  mediaIngresso: number = 100;
+  mediaIngressoDesporto: number = 100;
+
   notaPortuguesDecimo: number = 10;
   notaPortuguesDecimoPrim: number = 10;
   notaPortuguesDecimoSeg: number = 10;
@@ -351,10 +355,6 @@ export class CalculoNotaComponent implements OnInit {
     }
   }
 
-  public externoInternoCheck() {
-
-  }
-
   public validarNumero(num: any): boolean {
     const value = parseInt(num, 10);
 
@@ -582,6 +582,9 @@ export class CalculoNotaComponent implements OnInit {
     this.cifAnual2 = data.cifAnual2;
     this.notaExameExterno1Anual2 = data.notaExameExterno1Anual2;
     this.notaExameExterno2Anual2 = data.notaExameExterno2Anual2;
+    this.mediaIngresso = data.mediaIngresso;
+    this.mediaIngressoDesporto = data.mediaIngressoDesporto;
+    this.mediaSecundario = data.mediaSecundario;
   }
 
   validateMaxValue(event: any) {
@@ -596,6 +599,26 @@ export class CalculoNotaComponent implements OnInit {
     }
 
     this.notaAnual1DecimoSeg = value;
+  }
+
+  public calculaAnualI(){
+    this.cifAnual1=this.notaAnual1DecimoSeg;
+    if(this.anual1Externo1Check){
+      this.cifAnual1=Math.round(this.notaExameExterno1Anual1/10);
+    }
+    if(this.anual1Externo2Check){
+      this.cifAnual1=Math.round(this.notaExameExterno2Anual1/10);
+    }
+  }
+
+  public calculaAnualII(){
+    this.cifAnual2=this.notaAnual2DecimoSeg;
+    if(this.anual2Externo1Check){
+      this.cifAnual2=Math.round(this.notaExameExterno1Anual2/10);
+    }
+    if(this.anual1Externo2Check){
+      this.cifAnual2=Math.round(this.notaExameExterno2Anual2/10);
+    }
   }
 
   public ordenarArray(arr: any[], propriedade: string): any[] {
