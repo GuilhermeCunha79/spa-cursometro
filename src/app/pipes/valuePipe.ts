@@ -1,4 +1,4 @@
-﻿import {Component, NgModule, Pipe, PipeTransform} from '@angular/core';
+﻿import {Pipe, PipeTransform} from '@angular/core';
 import {Disciplina} from "../interfaces/disciplina";
 
 @Pipe({

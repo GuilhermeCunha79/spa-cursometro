@@ -8,11 +8,11 @@ export class DisciplinaCursoService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getByUtilizador(utilizadorId : string):Observable<any> {
+  getByUtilizador(utilizadorId: string): Observable<any> {
     return this.httpClient.get(this.Url + utilizadorId).pipe(map(this.extractData))
   }
 
-  geyByCodDisciplina(codigoDisciplina:string):Observable<any>{
+  geyByCodDisciplina(codigoDisciplina: string): Observable<any> {
     return this.httpClient.get(this.Url + '/Disciplina/' + codigoDisciplina).pipe(map(this.extractData))
   }
 

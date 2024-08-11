@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, Component, NgModule, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {NotaVisualizacao} from "../domain/nota-visualizacao";
 import {CalculoNotaService} from "../services/calculo-nota/calculo-nota-service";
 import {NotaParams} from "../interfaces/notaParams";
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Disciplina} from "../interfaces/disciplina";
 import {NgForOf, NgIf} from "@angular/common";
 import {FilterByValuePipe} from "../pipes/valuePipe";
@@ -511,6 +511,72 @@ export class CalculoNotaComponent implements OnInit {
     });
   }
 
+  validateMaxValue(event: any) {
+    let value = event;
+
+    if (typeof event === 'object' && event.target) {
+      value = parseInt(event.target.value, 10);
+    }
+
+    if (value > 20) {
+      value = 20;
+    }
+
+    this.notaAnual1DecimoSeg = value;
+  }
+
+  public calculaAnualI() {
+    this.cifAnual1 = this.notaAnual1DecimoSeg;
+    if (this.anual1Externo1Check) {
+      this.cifAnual1 = Math.round(this.notaExameExterno1Anual1 / 10);
+    }
+    if (this.anual1Externo2Check) {
+      this.cifAnual1 = Math.round(this.notaExameExterno2Anual1 / 10);
+    }
+  }
+
+  public calculaAnualII() {
+    this.cifAnual2 = this.notaAnual2DecimoSeg;
+    if (this.anual2Externo1Check) {
+      this.cifAnual2 = Math.round(this.notaExameExterno1Anual2 / 10);
+    }
+    if (this.anual2Externo2Check) {
+      this.cifAnual2 = Math.round(this.notaExameExterno2Anual2 / 10);
+    }
+  }
+
+  public calculaBienalI() {
+    this.cifBienal1 = Math.round((this.notaBienal1Decimo + this.notaBienal1DecimoPrim) / 2);
+    if (this.bienal1Externo1Check) {
+      this.cifBienal1 = Math.round(this.notaExameExterno1Bienal1 / 10);
+    }
+    if (this.anual1Externo2Check) {
+      this.cifBienal1 = Math.round(this.notaExameExterno2Bienal1 / 10);
+    }
+  }
+
+  public calculaBienalII() {
+    this.cifBienal2 = Math.round((this.notaBienal2Decimo + this.notaBienal2DecimoPrim) / 2);
+    if (this.bienal2Externo1Check) {
+      this.cifBienal2 = Math.round(this.notaExameExterno1Bienal2 / 10);
+    }
+    if (this.bienal2Externo2Check) {
+      this.cifBienal2 = Math.round(this.notaExameExterno2Bienal2 / 10);
+    }
+  }
+
+  public ordenarArray(arr: any[], propriedade: string): any[] {
+    return arr.sort((a, b) => {
+      if (a[propriedade] < b[propriedade]) {
+        return -1; // Retorna um valor negativo se 'a' deve vir antes de 'b'
+      }
+      if (a[propriedade] > b[propriedade]) {
+        return 1; // Retorna um valor positivo se 'b' deve vir antes de 'a'
+      }
+      return 0; // Retorna 0 se os valores forem iguais
+    });
+  }
+
   private updateNotaProperties(data: any): void {
     this.notaPortuguesDecimo = data.notaPortuguesDecimo;
     this.notaPortuguesDecimoPrim = data.notaPortuguesDecimoPrim;
@@ -585,51 +651,5 @@ export class CalculoNotaComponent implements OnInit {
     this.mediaIngresso = data.mediaIngresso;
     this.mediaIngressoDesporto = data.mediaIngressoDesporto;
     this.mediaSecundario = data.mediaSecundario;
-  }
-
-  validateMaxValue(event: any) {
-    let value = event;
-
-    if (typeof event === 'object' && event.target) {
-      value = parseInt(event.target.value, 10);
-    }
-
-    if (value > 20) {
-      value = 20;
-    }
-
-    this.notaAnual1DecimoSeg = value;
-  }
-
-  public calculaAnualI(){
-    this.cifAnual1=this.notaAnual1DecimoSeg;
-    if(this.anual1Externo1Check){
-      this.cifAnual1=Math.round(this.notaExameExterno1Anual1/10);
-    }
-    if(this.anual1Externo2Check){
-      this.cifAnual1=Math.round(this.notaExameExterno2Anual1/10);
-    }
-  }
-
-  public calculaAnualII(){
-    this.cifAnual2=this.notaAnual2DecimoSeg;
-    if(this.anual2Externo1Check){
-      this.cifAnual2=Math.round(this.notaExameExterno1Anual2/10);
-    }
-    if(this.anual1Externo2Check){
-      this.cifAnual2=Math.round(this.notaExameExterno2Anual2/10);
-    }
-  }
-
-  public ordenarArray(arr: any[], propriedade: string): any[] {
-    return arr.sort((a, b) => {
-      if (a[propriedade] < b[propriedade]) {
-        return -1; // Retorna um valor negativo se 'a' deve vir antes de 'b'
-      }
-      if (a[propriedade] > b[propriedade]) {
-        return 1; // Retorna um valor positivo se 'b' deve vir antes de 'a'
-      }
-      return 0; // Retorna 0 se os valores forem iguais
-    });
   }
 }

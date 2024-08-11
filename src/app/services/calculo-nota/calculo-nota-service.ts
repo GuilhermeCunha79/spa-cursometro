@@ -1,13 +1,15 @@
 ﻿import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {NotaParams} from "../../interfaces/notaParams";
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+
 @Injectable({
   providedIn: 'root'
 })
 export class CalculoNotaService {
 
   public Url = 'http://localhost:5096/api/Disciplina_CursoSecundario';
+
   constructor(private httpClient: HttpClient) {
   }
 
