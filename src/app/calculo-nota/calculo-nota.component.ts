@@ -19,6 +19,14 @@ export class CalculoNotaComponent implements OnInit {
 
   notaVisualizacao: NotaVisualizacao;
 
+  weight: number = 0.7;
+  exameWeight: number = 0.3;
+  exameWeightIngresso: number = 0.5;
+  minima: number = 95;
+  decima: number = 0.01;
+  dez: number = 10;
+  cem: number = 100;
+
   mediaSecundario: number = 100;
   mediaIngresso: number = 100;
   mediaIngressoDesporto: number = 100;
@@ -355,16 +363,6 @@ export class CalculoNotaComponent implements OnInit {
     }
   }
 
-  public validarNumero(num: any): boolean {
-    const value = parseInt(num, 10);
-
-    if (value < 0 || value > 20) {
-      alert('Insira um número inteiro entre 0 e 20.');
-      return false;
-    }
-    return true;
-  }
-
   public disciplinaCurso() {
 
     if (this.codigoCurso == "CT") {
@@ -427,7 +425,6 @@ export class CalculoNotaComponent implements OnInit {
   }
 
   public printt() {
-    console.log(this.isIngressoPortugues);
   }
 
   public salvarNota(): void {
@@ -511,19 +508,30 @@ export class CalculoNotaComponent implements OnInit {
     });
   }
 
-  validateMaxValue(event: any) {
-    let value = event;
+  public calcular() {
+    var weightDisciplina = this.cem - this.exameWeightIngresso;
 
-    if (typeof event === 'object' && event.target) {
-      value = parseInt(event.target.value, 10);
-    }
-
-    if (value > 20) {
-      value = 20;
-    }
-
-    this.notaAnual1DecimoSeg = value;
+    this.calculaPortugues();
   }
+
+  public calculaPortugues() {
+
+    if (this.portuguesExterno2Check && this.portuguesExterno1Check) {
+      this.cifPortugues = Math.round(Math.max(this.notaExameExterno1Portugues, this.notaExameExterno2Portugues) / this.dez);
+    }
+    else if (this.portuguesExterno1Check) {
+      this.cifPortugues = Math.round(this.notaExameExterno1Portugues / this.dez);
+    }
+    else if (this.portuguesExterno2Check) {
+      this.cifPortugues = Math.round(this.notaExameExterno2Portugues / this.dez);
+    }
+    else {
+      const mediaNotas = (this.notaPortuguesDecimo + this.notaPortuguesDecimoPrim + this.notaPortuguesDecimoSeg) / 3;
+      const notaFinal = (mediaNotas * this.weight) + ((this.notaExameInterno1Portugues * this.exameWeight) / this.dez);
+      this.cifPortugues = Math.round(notaFinal);
+    }
+  }
+
 
   public calculaAnualI() {
     this.cifAnual1 = this.notaAnual1DecimoSeg;

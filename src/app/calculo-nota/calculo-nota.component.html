@@ -40,43 +40,43 @@
     <td>
       <input [(ngModel)]="notaPortuguesDecimo" class="notaDisciplinaInput"
              max="20"
-             maxlength="2" min="1" oninput="if (this.value.length < this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else { if (this.value < 0 || this.value > 20) { this.value = 10; }}" placeholder="10" type="number">
+             maxlength="2" min="1" oninput="if (this.value.length < this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else { if (this.value < 0 || this.value > 20) { this.value = 10; }}" placeholder="10" type="number" (change)="calcular()">
     </td>
     <td>
       <input [(ngModel)]="notaPortuguesDecimoPrim" class="notaDisciplinaInput"
              max="20"
-             maxlength="2" min="1" oninput="if (this.value.length < this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else { if (this.value < 0 || this.value > 20) { this.value = 10; }}" placeholder="10" type="number">
+             maxlength="2" min="1" oninput="if (this.value.length < this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else { if (this.value < 0 || this.value > 20) { this.value = 10; }}" placeholder="10" type="number" (change)="calcular()">
     </td>
     <td>
       <input [(ngModel)]="notaPortuguesDecimoSeg" class="notaDisciplinaInput"
              max="20"
-             maxlength="2" min="1" oninput="if (this.value.length < this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else { if (this.value < 0 || this.value > 20) { this.value = 10; }}" placeholder="10" type="number">
+             maxlength="2" min="1" oninput="if (this.value.length < this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else { if (this.value < 0 || this.value > 20) { this.value = 10; }}" placeholder="10" type="number" (change)="calcular()">
     </td>
     <td>
       <input [(ngModel)]="notaExameInterno1Portugues" class="notaDisciplinaInput"
              max="200"
-             maxlength="3" min="0" oninput="if (this.value.length < this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else { if (this.value < 0 || this.value > 200) { this.value = 100; }}" placeholder="100" type="number">
+             maxlength="3" min="0" oninput="if (this.value.length < this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else { if (this.value < 0 || this.value > 200) { this.value = 100; }}" placeholder="100" type="number" (change)="calcular()">
     </td>
     <td>
-      <input (change)="isInternoExternoCheck('internoPortugues2')" class="selecaoInternoExterno" type="checkbox">
+      <input (change)="isInternoExternoCheck('internoPortugues2');calcular()" class="selecaoInternoExterno" type="checkbox" >
       <input *ngIf="portuguesInterno2Check" [(ngModel)]="notaExameInterno2Portugues" class="notaDisciplinaInput"
              max="200"
              maxlength="3"
-             min="1" oninput="if (this.value.length > this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else {this.value = 100; }" type="number">
+             min="1" oninput="if (this.value.length < this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else { if (this.value < 0 || this.value > 200) { this.value = 100; }}" type="number" (change)="calcular()">
     </td>
     <td>
-      <input (change)="isInternoExternoCheck('externoPortugues1')" class="selecaoInternoExterno" type="checkbox">
+      <input (change)="isInternoExternoCheck('externoPortugues1');calcular()" class="selecaoInternoExterno" type="checkbox">
       <input *ngIf="portuguesExterno1Check" [(ngModel)]="notaExameExterno1Portugues" class="notaDisciplinaInput"
              max="200"
              maxlength="3"
-             min="1" oninput="if (this.value.length > this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else {this.value = 100; }" type="number">
+             min="1" oninput="if (this.value.length < this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else { if (this.value < 0 || this.value > 200) { this.value = 100; }}" type="number" (change)="calcular()">
     </td>
     <td>
-      <input (change)="isInternoExternoCheck('externoPortugues2')" class="selecaoInternoExterno" type="checkbox">
+      <input (change)="isInternoExternoCheck('externoPortugues2');calcular()" class="selecaoInternoExterno" type="checkbox">
       <input *ngIf="portuguesExterno2Check" [(ngModel)]="notaExameExterno2Portugues" class="notaDisciplinaInput"
              max="200"
              maxlength="3"
-             min="1" oninput="if (this.value.length > this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else {this.value = 100; }" type="number">
+             min="1" oninput="if (this.value.length < this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else { if (this.value < 0 || this.value > 200) { this.value = 100; }}" type="number" (change)="calcular()">
     </td>
     <td>
       <input [(ngModel)]="cifPortugues" class="notaDisciplinaInput" disabled placeholder="10">
