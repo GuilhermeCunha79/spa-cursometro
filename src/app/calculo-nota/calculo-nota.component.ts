@@ -512,6 +512,9 @@ export class CalculoNotaComponent implements OnInit {
     var weightDisciplina = this.cem - this.exameWeightIngresso;
 
     this.calculaPortugues();
+    this.calculaAnualI();
+    this.calculaAnualII();
+    this.calculaEduFisica();
   }
 
   public calculaPortugues() {
@@ -532,6 +535,22 @@ export class CalculoNotaComponent implements OnInit {
     }
   }
 
+  public calculaEduFisica() {
+
+    if (this.eduFisicaExterno2Check && this.eduFisicaExterno1Check) {
+      this.cifEduFisica = Math.round(Math.max(this.notaExameExterno1EduFisica, this.notaExameExterno2EduFisica) / this.dez);
+    }
+    else if (this.eduFisicaExterno1Check) {
+      this.cifEduFisica = Math.round(this.notaExameExterno1EduFisica / this.dez);
+    }
+    else if (this.eduFisicaExterno2Check) {
+      this.cifEduFisica = Math.round(this.notaExameExterno2EduFisica / this.dez);
+    }
+    else {
+      const mediaNotas = (this.notaEduFisicaDecimo + this.notaEduFisicaDecimoPrim + this.notaEduFisicaDecimoSeg) / 3;
+      this.cifEduFisica = Math.round(mediaNotas);
+    }
+  }
 
   public calculaAnualI() {
     this.cifAnual1 = this.notaAnual1DecimoSeg;
