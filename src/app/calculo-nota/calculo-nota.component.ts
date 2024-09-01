@@ -517,6 +517,78 @@ export class CalculoNotaComponent implements OnInit {
     this.calculaEduFisica();
   }
 
+  public calculaBienalI(){
+    let mediaNotas = (this.notaBienal1Decimo + this.notaBienal1DecimoPrim) / 2;
+
+    if (this.bienal1Externo2Check && this.bienal1Externo1Check) {
+      this.cifBienal1 = Math.round(Math.max(this.notaExameExterno1Bienal1, this.notaExameExterno2Bienal1) / this.dez);
+    }
+    else if (this.bienal1Externo1Check) {
+      this.cifBienal1 = Math.round(this.notaExameExterno1Bienal1 / this.dez);
+    }
+    else if (this.bienal1Externo2Check) {
+      this.cifBienal1 = Math.round(this.notaExameExterno2Bienal1 / this.dez);
+    }
+    else {
+      if (this.bienal1Interno1Check && this.bienal1Interno2Check) {
+        mediaNotas = (mediaNotas * this.weight) + ((Math.max(this.notaExameInterno1Bienal1, this.notaExameInterno2Bienal1)* this.exameWeight/ this.dez));
+      } else if(this.bienal1Interno1Check){
+        mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno1Bienal1 * this.exameWeight) / this.dez);
+      }else if(this.bienal1Interno2Check){
+        mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno2Bienal1 * this.exameWeight) / this.dez);
+      }
+      this.cifBienal1 = Math.round(mediaNotas);
+    }
+  }
+
+  public calculaBienalII(){
+    let mediaNotas = (this.notaBienal2Decimo + this.notaBienal2DecimoPrim) / 2;
+
+    if (this.bienal2Externo2Check && this.bienal2Externo1Check) {
+      this.cifBienal2 = Math.round(Math.max(this.notaExameExterno1Bienal2, this.notaExameExterno2Bienal2) / this.dez);
+    }
+    else if (this.bienal2Externo1Check) {
+      this.cifBienal2 = Math.round(this.notaExameExterno1Bienal2 / this.dez);
+    }
+    else if (this.bienal2Externo2Check) {
+      this.cifBienal2 = Math.round(this.notaExameExterno2Bienal2 / this.dez);
+    }
+    else {
+      if (this.bienal2Interno1Check && this.bienal2Interno2Check) {
+        mediaNotas = (mediaNotas * this.weight) + ((Math.max(this.notaExameInterno1Bienal2, this.notaExameInterno2Bienal2)* this.exameWeight/ this.dez));
+      } else if(this.bienal2Interno1Check){
+        mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno1Bienal2 * this.exameWeight) / this.dez);
+      }else if(this.bienal2Interno2Check){
+        mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno2Bienal2 * this.exameWeight) / this.dez);
+      }
+      this.cifBienal2 = Math.round(mediaNotas);
+    }
+  }
+
+  public calculaFilosofia(){
+    let mediaNotas = (this.notaFilosofiaDecimo + this.notaFilosofiaDecimoPrim) / 2;
+
+    if (this.filosofiaExterno2Check && this.filosofiaExterno1Check) {
+      this.cifFilosofia = Math.round(Math.max(this.notaExameExterno1Filosofia, this.notaExameExterno2Filosofia) / this.dez);
+    }
+    else if (this.filosofiaExterno1Check) {
+      this.cifFilosofia = Math.round(this.notaExameExterno1Filosofia / this.dez);
+    }
+    else if (this.filosofiaExterno2Check) {
+      this.cifFilosofia = Math.round(this.notaExameExterno2Filosofia / this.dez);
+    }
+    else {
+      if (this.filosofiaInterno1Check && this.filosofiaInterno2Check) {
+        mediaNotas = (mediaNotas * this.weight) + ((Math.max(this.notaExameInterno1Filosofia, this.notaExameInterno2Filosofia)* this.exameWeight/ this.dez));
+      } else if(this.filosofiaInterno1Check){
+        mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno1Filosofia * this.exameWeight) / this.dez);
+      }else if(this.filosofiaInterno2Check){
+        mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno2Filosofia * this.exameWeight) / this.dez);
+      }
+      this.cifFilosofia = Math.round(mediaNotas);
+    }
+  }
+
   public calculaPortugues() {
 
     if (this.portuguesExterno2Check && this.portuguesExterno1Check) {
@@ -569,26 +641,6 @@ export class CalculoNotaComponent implements OnInit {
     }
     if (this.anual2Externo2Check) {
       this.cifAnual2 = Math.round(this.notaExameExterno2Anual2 / 10);
-    }
-  }
-
-  public calculaBienalI() {
-    this.cifBienal1 = Math.round((this.notaBienal1Decimo + this.notaBienal1DecimoPrim) / 2);
-    if (this.bienal1Externo1Check) {
-      this.cifBienal1 = Math.round(this.notaExameExterno1Bienal1 / 10);
-    }
-    if (this.anual1Externo2Check) {
-      this.cifBienal1 = Math.round(this.notaExameExterno2Bienal1 / 10);
-    }
-  }
-
-  public calculaBienalII() {
-    this.cifBienal2 = Math.round((this.notaBienal2Decimo + this.notaBienal2DecimoPrim) / 2);
-    if (this.bienal2Externo1Check) {
-      this.cifBienal2 = Math.round(this.notaExameExterno1Bienal2 / 10);
-    }
-    if (this.bienal2Externo2Check) {
-      this.cifBienal2 = Math.round(this.notaExameExterno2Bienal2 / 10);
     }
   }
 
