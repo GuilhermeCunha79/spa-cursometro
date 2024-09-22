@@ -82,7 +82,7 @@
       <input [(ngModel)]="cifPortugues" class="notaDisciplinaInput" disabled placeholder="10">
     </td>
     <td>
-      <input (change)="isIngressoCheck('isIngressoPortugues')" [ngModel]="isIngressoPortugues" class="selecaoInternoExterno"
+      <input (change)="isIngressoCheck('isIngressoPortugues');calculaPortugues();" [ngModel]="isIngressoPortugues" class="selecaoInternoExterno"
              type="checkbox">
     </td>
   </tr>
@@ -134,7 +134,7 @@
     </td>
     <td>
       <input
-        (change)="isIngressoCheck('isIngressoFilosofia')"
+        (change)="isIngressoCheck('isIngressoFilosofia');calculaFilosofia();"
         [disabled]="!filosofiaInterno1Check && !filosofiaInterno2Check && !filosofiaExterno1Check && !filosofiaExterno2Check" [ngModel]="isIngressoFilosofia" class="selecaoInternoExterno" type="checkbox"
         value="true">
     </td>
@@ -267,7 +267,7 @@
     </td>
     <td>
       <input
-        (change)="isIngressoCheck('isIngressoTrienal')"
+        (change)="isIngressoCheck('isIngressoTrienal');calculaTrienal();"
         [disabled]="!trienalInterno1Check && !trienalInterno2Check && !trienalExterno1Check && !trienalExterno2Check" class="selecaoInternoExterno" type="checkbox">
     </td>
   </tr>
@@ -331,7 +331,7 @@
     </td>
     <td>
       <input
-        (change)="isIngressoCheck('isIngressoBienal1')"
+        (change)="isIngressoCheck('isIngressoBienal1');calculaBienalI();"
         [disabled]="!bienal1Interno1Check && !bienal1Interno2Check && !bienal1Externo1Check && !bienal1Externo2Check" [ngModel]="isIngressoBienal1" class="selecaoInternoExterno"
         type="checkbox">
     </td>
@@ -363,7 +363,7 @@
     <td>
       <input (change)="isInternoExternoCheck('interno1Bienal2');calculaBienalII()" class="selecaoInternoExterno"
              type="checkbox">
-      <input *ngIf="bienal2Interno1Check" [(ngModel)]="notaExameInterno1Bienal1" class="notaDisciplinaInput"
+      <input *ngIf="bienal2Interno1Check" [(ngModel)]="notaExameInterno1Bienal2" class="notaDisciplinaInput"
              max="200"
              maxlength="3"
              min="1" oninput="if (this.value.length < this.maxLength) { this.value = this.value.slice(0, this.maxLength); } else { if (this.value < 0 || this.value > 200) { this.value = 100; }}" type="number" (change)="calculaBienalII()">
@@ -397,7 +397,7 @@
     </td>
     <td>
       <input
-        (change)="isIngressoCheck('isIngressoBienal2')"
+        (change)="isIngressoCheck('isIngressoBienal2');calculaBienalII();"
         [disabled]="!bienal2Interno1Check && !bienal2Interno2Check && !bienal2Externo1Check && !bienal2Externo2Check" [ngModel]="isIngressoBienal2" class="selecaoInternoExterno"
         type="checkbox">
     </td>
@@ -492,6 +492,16 @@
   </tr>
   </tbody>
 </table>
+
+<div style="display:flex; justify-content: center">
+  <select >
+    <option>45%</option>
+  </select>
+  <select>
+    <option>45%</option>
+  </select>
+</div>
+
 <div class="page-resultado">
   <div class="resultado-row">
     <div class="resultado-coluna" id="media">

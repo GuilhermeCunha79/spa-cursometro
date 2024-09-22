@@ -43,7 +43,6 @@ export class CalculoNotaService {
       "notaAnual2DecimoSeg": params.notaAnual2DecimoSeg,
 
       "idUtilizador": params.idUtilizador,
-      "isIngressoLingua": params.isIngressoLingua,
       "cifPortugues": params.cifPortugues,
       "notaExameInterno1Portugues": params.notaExameInterno1Portugues,
       "notaExameInterno2Portugues": params.notaExameInterno2Portugues,

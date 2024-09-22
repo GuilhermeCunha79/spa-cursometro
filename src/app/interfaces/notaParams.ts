@@ -62,7 +62,6 @@
   cifLingua: number;
   notaExameExterno1Lingua: string;
   notaExameExterno2Lingua: string;
-  isIngressoLingua: boolean;
   cifAnual1: number;
   notaExameExterno1Anual1: string;
   notaExameExterno2Anual1: string;

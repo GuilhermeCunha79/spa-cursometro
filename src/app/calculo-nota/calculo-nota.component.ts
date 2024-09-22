@@ -19,9 +19,9 @@ export class CalculoNotaComponent implements OnInit {
 
   notaVisualizacao: NotaVisualizacao;
 
-  weight: number = 0.7;
-  exameWeight: number = 0.3;
-  exameWeightIngresso: number = 0.5;
+  weight: number = 0.75;
+  exameWeight: number = 0.25;
+  exameWeightIngresso: number = 0.45;
   minima: number = 95;
   decima: number = 0.01;
   dez: number = 10;
@@ -71,59 +71,65 @@ export class CalculoNotaComponent implements OnInit {
   codigoCurso: string = "Curso Frequentado";
   idUtilizador: string;
 
+
   cifPortugues: number = 10;
   notaExameInterno1Portugues: number = 100;
   notaExameInterno2Portugues: number = 100;
   notaExameExterno1Portugues: number = 100;
   notaExameExterno2Portugues: number = 100;
-  isIngressoPortugues: boolean;
+  isIngressoPortugues: boolean = false;
   portuguesInterno2Check: boolean = false;
   portuguesExterno1Check: boolean = false;
   portuguesExterno2Check: boolean = false;
+  exameIngressoPortugues: number = 0;
 
   cifFilosofia: number = 10;
   notaExameInterno1Filosofia: number = 100;
   notaExameInterno2Filosofia: number = 100;
   notaExameExterno1Filosofia: number = 100;
   notaExameExterno2Filosofia: number = 100;
-  isIngressoFilosofia: boolean;
+  isIngressoFilosofia: boolean = false;
   filosofiaInterno1Check: boolean = false;
   filosofiaInterno2Check: boolean = false;
   filosofiaExterno1Check: boolean = false;
   filosofiaExterno2Check: boolean = false;
+  exameIngressoFilosofia: number = 0;
 
   cifTrienal: number = 10;
   notaExameInterno1Trienal: number = 100;
   notaExameInterno2Trienal: number = 100;
   notaExameExterno1Trienal: number = 100;
   notaExameExterno2Trienal: number = 100;
-  isIngressoTrienal: boolean;
+  isIngressoTrienal: boolean = false;
   trienalInterno1Check: boolean = false;
   trienalInterno2Check: boolean = false;
   trienalExterno1Check: boolean = false;
   trienalExterno2Check: boolean = false;
+  exameIngressoTrienal: number = 0;
 
   cifBienal1: number = 10;
   notaExameInterno1Bienal1: number = 100;
   notaExameInterno2Bienal1: number = 100;
   notaExameExterno1Bienal1: number = 100;
   notaExameExterno2Bienal1: number = 100;
-  isIngressoBienal1: boolean;
+  isIngressoBienal1: boolean = false;
   bienal1Interno1Check: boolean = false;
   bienal1Interno2Check: boolean = false;
   bienal1Externo1Check: boolean = false;
   bienal1Externo2Check: boolean = false;
+  exameIngressoBienal1: number = 0;
 
   cifBienal2: number = 10;
   notaExameInterno1Bienal2: number = 100;
   notaExameInterno2Bienal2: number = 100;
   notaExameExterno1Bienal2: number = 100;
   notaExameExterno2Bienal2: number = 100;
-  isIngressoBienal2: boolean;
+  isIngressoBienal2: boolean = false;
   bienal2Interno1Check: boolean = false;
   bienal2Interno2Check: boolean = false;
   bienal2Externo1Check: boolean = false;
   bienal2Externo2Check: boolean = false;
+  exameIngressoBienal2: number = 0;
 
   cifEduFisica: number = 10;
   notaExameExterno1EduFisica: number = 100;
@@ -134,7 +140,6 @@ export class CalculoNotaComponent implements OnInit {
   cifLingua: number = 10;
   notaExameExterno1Lingua: number = 100;
   notaExameExterno2Lingua: number = 100;
-  isIngressoLingua: boolean;
   linguaExterno1Check: boolean = false;
   linguaExterno2Check: boolean = false;
 
@@ -149,6 +154,7 @@ export class CalculoNotaComponent implements OnInit {
   notaExameExterno2Anual2: number = 100;
   anual2Externo1Check: boolean = false;
   anual2Externo2Check: boolean = false;
+  counterExamesIngresso: number = 0;
 
   disciplinasCurso: Disciplina[] = [];
 
@@ -252,7 +258,6 @@ export class CalculoNotaComponent implements OnInit {
 
   listaAnual1: Disciplina[] = [];
   listaAnual2: Disciplina[] = [];
-
 
   constructor(private calculoNotaService: CalculoNotaService, private cdr: ChangeDetectorRef) {
   }
@@ -493,7 +498,6 @@ export class CalculoNotaComponent implements OnInit {
       cifLingua: this.cifLingua,
       notaExameExterno1Lingua: this.notaExameExterno1Lingua.toString(),
       notaExameExterno2Lingua: this.notaExameExterno2Lingua.toString(),
-      isIngressoLingua: this.isIngressoLingua,
       cifAnual1: this.cifAnual1,
       notaExameExterno1Anual1: this.notaExameExterno1Anual1.toString(),
       notaExameExterno2Anual1: this.notaExameExterno2Anual1.toString(),
@@ -508,47 +512,43 @@ export class CalculoNotaComponent implements OnInit {
     });
   }
 
-  public calcular() {
-    var weightDisciplina = this.cem - this.exameWeightIngresso;
-
-    this.calculaPortugues();
-    this.calculaAnualI();
-    this.calculaAnualII();
-    this.calculaEduFisica();
-    this.calculaFilosofia();
-    this.calculaBienalI();
-    this.calculaBienalII();
-    this.calculaLingua();
-    this.calculaTrienal();
-
-    this.mediaSecundario = parseFloat((
-      (this.cifPortugues + this.cifFilosofia + this.cifLingua + this.cifEduFisica + this.cifTrienal
-        + this.cifBienal1 + this.cifBienal2 + this.cifAnual1 + this.cifAnual2) / 9
-    ).toFixed(2))*10;
-  }
-
   public calculaBienalI() {
     let mediaNotas = (this.notaBienal1Decimo + this.notaBienal1DecimoPrim) / 2;
 
     if (this.bienal1Externo2Check && this.bienal1Externo1Check) {
       this.cifBienal1 = Math.round(Math.max(this.notaExameExterno1Bienal1, this.notaExameExterno2Bienal1) / this.dez);
+      if (this.isIngressoBienal1) {
+        this.exameIngressoBienal1 = Math.max(this.notaExameExterno1Bienal1, this.notaExameExterno2Bienal1);
+      }
     } else if (this.bienal1Externo1Check) {
       this.cifBienal1 = Math.round(this.notaExameExterno1Bienal1 / this.dez);
+      if (this.isIngressoBienal1) {
+        this.exameIngressoBienal1 = this.notaExameExterno1Bienal1;
+      }
     } else if (this.bienal1Externo2Check) {
       this.cifBienal1 = Math.round(this.notaExameExterno2Bienal1 / this.dez);
+      if (this.isIngressoBienal1) {
+        this.exameIngressoBienal1 = this.notaExameExterno2Bienal1;
+      }
     } else {
       if (this.bienal1Interno1Check && this.bienal1Interno2Check) {
         mediaNotas = (mediaNotas * this.weight) + ((Math.max(this.notaExameInterno1Bienal1, this.notaExameInterno2Bienal1) * this.exameWeight / this.dez));
+        if (this.isIngressoBienal1) {
+          this.exameIngressoBienal1 = Math.max(this.notaExameInterno1Bienal1, this.notaExameInterno2Bienal1);
+        }
       } else if (this.bienal1Interno1Check) {
         mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno1Bienal1 * this.exameWeight) / this.dez);
+        if (this.isIngressoBienal1) {
+          this.exameIngressoBienal1 = this.notaExameInterno1Bienal1;
+        }
       } else if (this.bienal1Interno2Check) {
         mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno2Bienal1 * this.exameWeight) / this.dez);
+        if (this.isIngressoBienal1) {
+          this.exameIngressoBienal1 = this.notaExameInterno2Bienal1;
+        }
       }
       this.cifBienal1 = Math.round(mediaNotas);
-      this.mediaSecundario = parseFloat((
-        (this.cifPortugues + this.cifFilosofia + this.cifLingua + this.cifEduFisica + this.cifTrienal
-          + this.cifBienal1 + this.cifBienal2 + this.cifAnual1 + this.cifAnual2) / 9
-      ).toFixed(2))*10;
+      this.calcularMediaSecundario();
     }
   }
 
@@ -561,12 +561,9 @@ export class CalculoNotaComponent implements OnInit {
       this.cifLingua = Math.round(this.notaExameExterno1Lingua / this.dez);
     } else if (this.linguaExterno2Check) {
       this.cifLingua = Math.round(this.notaExameExterno2Lingua / this.dez);
-    }else{
+    } else {
       this.cifLingua = Math.round(mediaNotas);
-      this.mediaSecundario = parseFloat((
-        (this.cifPortugues + this.cifFilosofia + this.cifLingua + this.cifEduFisica + this.cifTrienal
-          + this.cifBienal1 + this.cifBienal2 + this.cifAnual1 + this.cifAnual2) / 9
-      ).toFixed(2))*10;
+      this.calcularMediaSecundario();
     }
   }
 
@@ -575,23 +572,36 @@ export class CalculoNotaComponent implements OnInit {
 
     if (this.bienal2Externo2Check && this.bienal2Externo1Check) {
       this.cifBienal2 = Math.round(Math.max(this.notaExameExterno1Bienal2, this.notaExameExterno2Bienal2) / this.dez);
+      if (this.isIngressoBienal2) {
+        this.exameIngressoBienal2 = Math.max(this.notaExameExterno1Bienal2, this.notaExameExterno2Bienal2);
+      }
     } else if (this.bienal2Externo1Check) {
       this.cifBienal2 = Math.round(this.notaExameExterno1Bienal2 / this.dez);
+      if (this.isIngressoBienal2) {
+        this.exameIngressoBienal2 = this.notaExameExterno1Bienal2;
+      }
     } else if (this.bienal2Externo2Check) {
       this.cifBienal2 = Math.round(this.notaExameExterno2Bienal2 / this.dez);
+      if (this.isIngressoBienal2) {
+        this.exameIngressoBienal2 = this.notaExameExterno2Bienal2;
+      }
     } else {
       if (this.bienal2Interno1Check && this.bienal2Interno2Check) {
         mediaNotas = (mediaNotas * this.weight) + ((Math.max(this.notaExameInterno1Bienal2, this.notaExameInterno2Bienal2) * this.exameWeight / this.dez));
+        if (this.isIngressoBienal2) {
+          this.exameIngressoBienal2 = Math.max(this.notaExameInterno1Bienal2, this.notaExameInterno2Bienal2);
+        }
       } else if (this.bienal2Interno1Check) {
         mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno1Bienal2 * this.exameWeight) / this.dez);
+        if (this.isIngressoBienal2) {
+          this.exameIngressoBienal2 = this.notaExameInterno1Bienal2;
+        }
       } else if (this.bienal2Interno2Check) {
         mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno2Bienal2 * this.exameWeight) / this.dez);
+        this.exameIngressoBienal2 = this.notaExameInterno2Bienal2;
       }
       this.cifBienal2 = Math.round(mediaNotas);
-      this.mediaSecundario = parseFloat((
-        (this.cifPortugues + this.cifFilosofia + this.cifLingua + this.cifEduFisica + this.cifTrienal
-          + this.cifBienal1 + this.cifBienal2 + this.cifAnual1 + this.cifAnual2) / 9
-      ).toFixed(2))*10;
+      this.calcularMediaSecundario();
     }
   }
 
@@ -600,23 +610,38 @@ export class CalculoNotaComponent implements OnInit {
 
     if (this.filosofiaExterno2Check && this.filosofiaExterno1Check) {
       this.cifFilosofia = Math.round(Math.max(this.notaExameExterno1Filosofia, this.notaExameExterno2Filosofia) / this.dez);
+      if (this.isIngressoFilosofia) {
+        this.exameIngressoFilosofia = Math.max(this.notaExameExterno1Filosofia, this.notaExameExterno2Filosofia);
+      }
     } else if (this.filosofiaExterno1Check) {
       this.cifFilosofia = Math.round(this.notaExameExterno1Filosofia / this.dez);
+      if (this.isIngressoFilosofia) {
+        this.exameIngressoFilosofia = this.notaExameExterno1Filosofia;
+      }
     } else if (this.filosofiaExterno2Check) {
       this.cifFilosofia = Math.round(this.notaExameExterno2Filosofia / this.dez);
+      if (this.isIngressoFilosofia) {
+        this.exameIngressoFilosofia = this.notaExameExterno2Filosofia;
+      }
     } else {
       if (this.filosofiaInterno1Check && this.filosofiaInterno2Check) {
         mediaNotas = (mediaNotas * this.weight) + ((Math.max(this.notaExameInterno1Filosofia, this.notaExameInterno2Filosofia) * this.exameWeight / this.dez));
+        if (this.isIngressoFilosofia) {
+          this.exameIngressoFilosofia = Math.max(this.notaExameInterno1Filosofia, this.notaExameInterno2Filosofia);
+        }
       } else if (this.filosofiaInterno1Check) {
         mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno1Filosofia * this.exameWeight) / this.dez);
+        if (this.isIngressoFilosofia) {
+          this.exameIngressoFilosofia = this.notaExameInterno1Filosofia;
+        }
       } else if (this.filosofiaInterno2Check) {
         mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno2Filosofia * this.exameWeight) / this.dez);
+        if (this.isIngressoFilosofia) {
+          this.exameIngressoFilosofia = this.notaExameInterno2Filosofia;
+        }
       }
       this.cifFilosofia = Math.round(mediaNotas);
-      this.mediaSecundario = parseFloat((
-        (this.cifPortugues + this.cifFilosofia + this.cifLingua + this.cifEduFisica + this.cifTrienal
-          + this.cifBienal1 + this.cifBienal2 + this.cifAnual1 + this.cifAnual2) / 9
-      ).toFixed(2))*10;
+      this.calcularMediaSecundario();
     }
   }
 
@@ -625,43 +650,75 @@ export class CalculoNotaComponent implements OnInit {
 
     if (this.trienalExterno2Check && this.trienalExterno1Check) {
       this.cifTrienal = Math.round(Math.max(this.notaExameExterno1Trienal, this.notaExameExterno2Trienal) / this.dez);
+      if (this.isIngressoTrienal) {
+        this.exameIngressoTrienal = Math.max(this.notaExameExterno1Trienal, this.notaExameExterno2Trienal);
+      }
     } else if (this.trienalExterno1Check) {
       this.cifTrienal = Math.round(this.notaExameExterno1Trienal / this.dez);
+      if (this.isIngressoTrienal) {
+        this.exameIngressoTrienal = this.notaExameExterno1Trienal;
+      }
     } else if (this.filosofiaExterno2Check) {
       this.cifTrienal = Math.round(this.notaExameExterno2Trienal / this.dez);
+      if (this.isIngressoTrienal) {
+        this.exameIngressoTrienal = this.notaExameExterno2Trienal;
+      }
     } else {
       if (this.trienalInterno1Check && this.trienalInterno2Check) {
         mediaNotas = (mediaNotas * this.weight) + ((Math.max(this.notaExameInterno1Trienal, this.notaExameInterno2Trienal) * this.exameWeight / this.dez));
+        if (this.isIngressoTrienal) {
+          this.exameIngressoTrienal = Math.max(this.notaExameInterno1Trienal, this.notaExameInterno2Trienal);
+        }
       } else if (this.trienalInterno1Check) {
         mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno1Trienal * this.exameWeight) / this.dez);
+        if (this.isIngressoTrienal) {
+          this.exameIngressoTrienal = this.notaExameInterno1Trienal;
+        }
       } else if (this.trienalInterno2Check) {
         mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno2Trienal * this.exameWeight) / this.dez);
+        if (this.isIngressoTrienal) {
+          this.exameIngressoTrienal = this.notaExameInterno2Trienal;
+        }
       }
       this.cifTrienal = Math.round(mediaNotas);
-      this.mediaSecundario = parseFloat((
-        (this.cifPortugues + this.cifFilosofia + this.cifLingua + this.cifEduFisica + this.cifTrienal
-          + this.cifBienal1 + this.cifBienal2 + this.cifAnual1 + this.cifAnual2) / 9
-      ).toFixed(2))*10;
+      this.calcularMediaSecundario();
     }
   }
 
-
   public calculaPortugues() {
+
+    let mediaNotas = (this.notaPortuguesDecimo + this.notaPortuguesDecimoPrim + this.notaPortuguesDecimoSeg) / 3;
+    this.exameIngressoPortugues = 0;
 
     if (this.portuguesExterno2Check && this.portuguesExterno1Check) {
       this.cifPortugues = Math.round(Math.max(this.notaExameExterno1Portugues, this.notaExameExterno2Portugues) / this.dez);
+      if (this.isIngressoPortugues) {
+        this.exameIngressoPortugues = Math.max(this.notaExameExterno1Portugues, this.notaExameExterno2Portugues);
+      }
     } else if (this.portuguesExterno1Check) {
       this.cifPortugues = Math.round(this.notaExameExterno1Portugues / this.dez);
+      if (this.isIngressoPortugues) {
+        this.exameIngressoPortugues = this.notaExameExterno1Portugues;
+      }
     } else if (this.portuguesExterno2Check) {
       this.cifPortugues = Math.round(this.notaExameExterno2Portugues / this.dez);
+      if (this.isIngressoPortugues) {
+        this.exameIngressoPortugues = this.notaExameExterno2Portugues;
+      }
+    } else if (this.portuguesInterno2Check) {
+      mediaNotas = (mediaNotas * this.weight) + ((Math.max(this.notaExameInterno1Portugues, this.notaExameInterno2Portugues) * this.exameWeight / this.dez));
+      if (this.isIngressoPortugues) {
+        this.exameIngressoPortugues = this.notaExameInterno2Portugues;
+      }
+      this.cifPortugues = Math.round(mediaNotas);
     } else {
-      const mediaNotas = (this.notaPortuguesDecimo + this.notaPortuguesDecimoPrim + this.notaPortuguesDecimoSeg) / 3;
-      const notaFinal = (mediaNotas * this.weight) + ((this.notaExameInterno1Portugues * this.exameWeight) / this.dez);
-      this.cifPortugues = Math.round(notaFinal);
-      this.mediaSecundario = parseFloat((
-        (this.cifPortugues + this.cifFilosofia + this.cifLingua + this.cifEduFisica + this.cifTrienal
-          + this.cifBienal1 + this.cifBienal2 + this.cifAnual1 + this.cifAnual2) / 9
-      ).toFixed(2))*10;
+      mediaNotas = (mediaNotas * this.weight) + ((this.notaExameInterno1Portugues * this.exameWeight) / this.dez);
+      this.cifPortugues = Math.round(mediaNotas);
+      if (this.isIngressoPortugues) {
+        this.exameIngressoPortugues = this.notaExameInterno1Portugues;
+
+      }
+      this.calcularMediaSecundario();
     }
   }
 
@@ -676,10 +733,7 @@ export class CalculoNotaComponent implements OnInit {
     } else {
       const mediaNotas = (this.notaEduFisicaDecimo + this.notaEduFisicaDecimoPrim + this.notaEduFisicaDecimoSeg) / 3;
       this.cifEduFisica = Math.round(mediaNotas);
-      this.mediaSecundario = parseFloat((
-        (this.cifPortugues + this.cifFilosofia + this.cifLingua + this.cifEduFisica + this.cifTrienal
-          + this.cifBienal1 + this.cifBienal2 + this.cifAnual1 + this.cifAnual2) / 9
-      ).toFixed(2))*10;
+      this.calcularMediaSecundario();
     }
   }
 
@@ -691,10 +745,7 @@ export class CalculoNotaComponent implements OnInit {
     if (this.anual1Externo2Check) {
       this.cifAnual1 = Math.round(this.notaExameExterno2Anual1 / 10);
     }
-    this.mediaSecundario = parseFloat((
-      (this.cifPortugues + this.cifFilosofia + this.cifLingua + this.cifEduFisica + this.cifTrienal
-        + this.cifBienal1 + this.cifBienal2 + this.cifAnual1 + this.cifAnual2) / 9
-    ).toFixed(2))*10;
+    this.calcularMediaSecundario();
   }
 
   public calculaAnualII() {
@@ -705,10 +756,66 @@ export class CalculoNotaComponent implements OnInit {
     if (this.anual2Externo2Check) {
       this.cifAnual2 = Math.round(this.notaExameExterno2Anual2 / 10);
     }
-    this.mediaSecundario = parseFloat((
-      (this.cifPortugues + this.cifFilosofia + this.cifLingua + this.cifEduFisica + this.cifTrienal
-        + this.cifBienal1 + this.cifBienal2 + this.cifAnual1 + this.cifAnual2) / 9
-    ).toFixed(2))*10;
+    this.calcularMediaSecundario();
+  }
+
+  public calcularMediaSecundario() {
+    // Cálculo dos pesos e notas
+    const notasTrienais = 3 * (this.cifTrienal + this.cifPortugues + this.cifEduFisica);
+    const notasBienais = 2 * (this.cifBienal1 + this.cifBienal2 + this.cifFilosofia + this.cifLingua);
+    const notasAnuais = this.cifAnual1 + this.cifAnual2;
+
+    const totalPesoNotas = notasTrienais + notasBienais + notasAnuais;
+
+    const totalPesos = 3 + 3 + 3 + 2 + 2 + 2 + 2 + 1 + 1; // Contagem total de pesos
+
+    // Cálculo da média ponderada
+    this.mediaSecundario = parseFloat((totalPesoNotas / totalPesos).toFixed(2)) * 10;
+
+    // Cálculo da média sem Educação Física
+    const totalPesoNotasSemEdu = totalPesoNotas - (3 * this.cifEduFisica);
+    const totalPesosSemEdu = totalPesos - 3; // Ajusta para remover o peso da Educação Física
+
+    const mediaSecundarioLessEduFisica = parseFloat((totalPesoNotasSemEdu / totalPesosSemEdu).toFixed(2)) * 10;
+    const sumIngresso = this.exameIngressoPortugues + this.exameIngressoFilosofia + this.exameIngressoTrienal + this.exameIngressoBienal1 + this.exameIngressoBienal2;
+    console.log(sumIngresso);
+
+    // Media Ingresso
+    this.incrementarSumExamesIngresso();
+    console.log(this.counterExamesIngresso);
+    if (this.counterExamesIngresso > 0) {
+      this.mediaIngresso = parseFloat((
+        mediaSecundarioLessEduFisica * ((this.cem * this.decima) - this.exameWeightIngresso) +
+        ((sumIngresso / this.counterExamesIngresso) * this.exameWeightIngresso)).toFixed(2));
+      this.mediaIngressoDesporto = parseFloat((
+        this.mediaSecundario * ((this.cem * this.decima) - this.exameWeightIngresso) +
+        ((sumIngresso / this.counterExamesIngresso) * this.exameWeightIngresso)).toFixed(2));
+    } else {
+      this.mediaIngresso = 100;
+    }
+  }
+
+  public incrementarSumExamesIngresso() {
+    this.counterExamesIngresso = 0;
+    if (this.isIngressoPortugues) {
+      this.counterExamesIngresso++;
+    }
+
+    if (this.isIngressoFilosofia) {
+      this.counterExamesIngresso++;
+    }
+
+    if (this.isIngressoTrienal) {
+      this.counterExamesIngresso++;
+    }
+
+    if (this.isIngressoBienal1) {
+      this.counterExamesIngresso++;
+    }
+
+    if (this.isIngressoBienal2) {
+      this.counterExamesIngresso++;
+    }
   }
 
   public ordenarArray(arr: any[], propriedade: string): any[] {
@@ -787,7 +894,6 @@ export class CalculoNotaComponent implements OnInit {
     this.cifLingua = data.cifLingua;
     this.notaExameExterno1Lingua = data.notaExameExterno1Lingua;
     this.notaExameExterno2Lingua = data.notaExameExterno2Lingua;
-    this.isIngressoLingua = data.isIngressoLingua;
     this.cifAnual1 = data.cifAnual1;
     this.notaExameExterno1Anual1 = data.notaExameExterno1Anual1;
     this.notaExameExterno2Anual1 = data.notaExameExterno2Anual1;
