@@ -494,11 +494,20 @@
 </table>
 
 <div style="display:flex; justify-content: center">
-  <select >
-    <option>45%</option>
+  <select [(ngModel)]="exameWeightIngresso" (change)="adjustWeights()">
+    <option [ngValue]="0.4">40%</option>
+    <option [ngValue]="0.45">45%</option>
+    <option [ngValue]="0.5" selected>50%</option>
+    <option [ngValue]="0.55" selected>55%</option>
+    <option [ngValue]="0.6">60%</option>
   </select>
-  <select>
-    <option>45%</option>
+
+  <select [(ngModel)]="mediaWeightIngresso" (change)="adjustWeights()">
+    <option [ngValue]="0.4">40%</option>
+    <option [ngValue]="0.45" >45%</option>
+    <option [ngValue]="0.5" selected>50%</option>
+    <option [ngValue]="0.55" >55%</option>
+    <option [ngValue]="0.6">60%</option>
   </select>
 </div>
 

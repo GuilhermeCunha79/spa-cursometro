@@ -21,13 +21,15 @@ export class CalculoNotaComponent implements OnInit {
 
   weight: number = 0.75;
   exameWeight: number = 0.25;
-  exameWeightIngresso: number = 0.45;
+  exameWeightIngresso: number;
+  mediaWeightIngresso: number;
   minima: number = 95;
   decima: number = 0.01;
   dez: number = 10;
   cem: number = 100;
 
   mediaSecundario: number = 100;
+  mediaSecundarioLessEduFisica: number = 100;
   mediaIngresso: number = 100;
   mediaIngressoDesporto: number = 100;
 
@@ -548,7 +550,7 @@ export class CalculoNotaComponent implements OnInit {
         }
       }
       this.cifBienal1 = Math.round(mediaNotas);
-      this.calcularMediaSecundario();
+      this.calcularMediaSecundario(true);
     }
   }
 
@@ -563,7 +565,7 @@ export class CalculoNotaComponent implements OnInit {
       this.cifLingua = Math.round(this.notaExameExterno2Lingua / this.dez);
     } else {
       this.cifLingua = Math.round(mediaNotas);
-      this.calcularMediaSecundario();
+      this.calcularMediaSecundario(true);
     }
   }
 
@@ -601,7 +603,7 @@ export class CalculoNotaComponent implements OnInit {
         this.exameIngressoBienal2 = this.notaExameInterno2Bienal2;
       }
       this.cifBienal2 = Math.round(mediaNotas);
-      this.calcularMediaSecundario();
+      this.calcularMediaSecundario(true);
     }
   }
 
@@ -641,7 +643,7 @@ export class CalculoNotaComponent implements OnInit {
         }
       }
       this.cifFilosofia = Math.round(mediaNotas);
-      this.calcularMediaSecundario();
+      this.calcularMediaSecundario(true);
     }
   }
 
@@ -681,7 +683,7 @@ export class CalculoNotaComponent implements OnInit {
         }
       }
       this.cifTrienal = Math.round(mediaNotas);
-      this.calcularMediaSecundario();
+      this.calcularMediaSecundario(true);
     }
   }
 
@@ -718,7 +720,7 @@ export class CalculoNotaComponent implements OnInit {
         this.exameIngressoPortugues = this.notaExameInterno1Portugues;
 
       }
-      this.calcularMediaSecundario();
+      this.calcularMediaSecundario(true);
     }
   }
 
@@ -733,7 +735,7 @@ export class CalculoNotaComponent implements OnInit {
     } else {
       const mediaNotas = (this.notaEduFisicaDecimo + this.notaEduFisicaDecimoPrim + this.notaEduFisicaDecimoSeg) / 3;
       this.cifEduFisica = Math.round(mediaNotas);
-      this.calcularMediaSecundario();
+      this.calcularMediaSecundario(true);
     }
   }
 
@@ -745,7 +747,7 @@ export class CalculoNotaComponent implements OnInit {
     if (this.anual1Externo2Check) {
       this.cifAnual1 = Math.round(this.notaExameExterno2Anual1 / 10);
     }
-    this.calcularMediaSecundario();
+    this.calcularMediaSecundario(true);
   }
 
   public calculaAnualII() {
@@ -756,10 +758,37 @@ export class CalculoNotaComponent implements OnInit {
     if (this.anual2Externo2Check) {
       this.cifAnual2 = Math.round(this.notaExameExterno2Anual2 / 10);
     }
-    this.calcularMediaSecundario();
+    this.calcularMediaSecundario(true);
   }
 
-  public calcularMediaSecundario() {
+  adjustWeights(): void {
+    // Map exameWeightIngresso and mediaWeightIngresso pairs
+    const weights: [number, number][] = [
+      [0.5, 0.5],
+      [0.55, 0.45],
+      [0.6, 0.4],
+      [0.7, 0.3],
+      [0.45, 0.55]
+    ];
+
+    // Adjust weights based on mediaWeightIngresso or exameWeightIngresso
+    for (const [media, exame] of weights) {
+      if (this.mediaWeightIngresso === media) {
+        this.exameWeightIngresso = exame;
+        break;
+      }
+      if (this.exameWeightIngresso === exame) {
+        this.mediaWeightIngresso = media;
+        break;
+      }
+    }
+
+    this.calcularMediaSecundario(false);
+  }
+
+
+
+  public calcularMediaSecundario(disciplina: boolean) {
     // Cálculo dos pesos e notas
     const notasTrienais = 3 * (this.cifTrienal + this.cifPortugues + this.cifEduFisica);
     const notasBienais = 2 * (this.cifBienal1 + this.cifBienal2 + this.cifFilosofia + this.cifLingua);
@@ -776,16 +805,17 @@ export class CalculoNotaComponent implements OnInit {
     const totalPesoNotasSemEdu = totalPesoNotas - (3 * this.cifEduFisica);
     const totalPesosSemEdu = totalPesos - 3; // Ajusta para remover o peso da Educação Física
 
-    const mediaSecundarioLessEduFisica = parseFloat((totalPesoNotasSemEdu / totalPesosSemEdu).toFixed(2)) * 10;
+    this.mediaSecundarioLessEduFisica = parseFloat((totalPesoNotasSemEdu / totalPesosSemEdu).toFixed(2)) * 10;
     const sumIngresso = this.exameIngressoPortugues + this.exameIngressoFilosofia + this.exameIngressoTrienal + this.exameIngressoBienal1 + this.exameIngressoBienal2;
-    console.log(sumIngresso);
 
     // Media Ingresso
-    this.incrementarSumExamesIngresso();
-    console.log(this.counterExamesIngresso);
+    if (disciplina) {
+      this.incrementarSumExamesIngresso();
+    }
+
     if (this.counterExamesIngresso > 0) {
       this.mediaIngresso = parseFloat((
-        mediaSecundarioLessEduFisica * ((this.cem * this.decima) - this.exameWeightIngresso) +
+        this.mediaSecundarioLessEduFisica * ((this.cem * this.decima) - this.exameWeightIngresso) +
         ((sumIngresso / this.counterExamesIngresso) * this.exameWeightIngresso)).toFixed(2));
       this.mediaIngressoDesporto = parseFloat((
         this.mediaSecundario * ((this.cem * this.decima) - this.exameWeightIngresso) +
@@ -818,7 +848,8 @@ export class CalculoNotaComponent implements OnInit {
     }
   }
 
-  public ordenarArray(arr: any[], propriedade: string): any[] {
+  public ordenarArray(arr: any[], propriedade: string):
+    any[] {
     return arr.sort((a, b) => {
       if (a[propriedade] < b[propriedade]) {
         return -1; // Retorna um valor negativo se 'a' deve vir antes de 'b'
